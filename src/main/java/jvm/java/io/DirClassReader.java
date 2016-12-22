@@ -4,6 +4,11 @@ import java.io.*;
 
 /**
  * Created by admin on 2016/12/22.
+ * @author  zhoushuang
+ *
+ *
+ *
+ *
  */
 public class DirClassReader extends AbstractClassReader {
 
@@ -13,8 +18,8 @@ public class DirClassReader extends AbstractClassReader {
 
     @Override
     protected byte[] readClass(String classname) throws IOException {
-        String rpath = classname.replace('.', File.pathSeparatorChar);
-        String path = this.location + File.separator + rpath;
+        String rpath = classname.replace('.', File.separatorChar);
+        String path = this.location + File.separator + rpath + ".class";
         File f = new File(path);
         byte[] bytes = null;
         if (f.exists() && f.isFile()) {
