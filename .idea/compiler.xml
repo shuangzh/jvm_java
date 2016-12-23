@@ -26,7 +26,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="jvm_java" target="1.5" />
+      <module name="jvm_java" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

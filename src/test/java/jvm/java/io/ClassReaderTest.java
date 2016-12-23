@@ -31,6 +31,18 @@ public class ClassReaderTest {
         String rtest=new String(bytes);
         System.out.println(rtest);
         Assert.assertEquals(rtest,text);
+    }
+
+    @Test
+    public void testDefaultClassParser()
+    {
+        DirClassReader dirClassReader = new DirClassReader(System.getProperty("user.dir")+"\\target\\classes");
+        byte[] bytes=dirClassReader.getClassBytes("jvm.java.main.JVMMain");
+        ClassFile classFile = new ClassFile(bytes);
+        DefaultClassParser defaultClassParser = new DefaultClassParser();
+        defaultClassParser.parse(classFile);
+
+        System.out.println("Hello");
 
     }
 
