@@ -1,4 +1,6 @@
-package jvm.java.io;
+package jvm.java.classfile;
+
+import jvm.java.classfile.attribute.AttributeInfo;
 
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -13,7 +15,7 @@ public class MethodInfo {
     int descriptor_index;
     int attributes_count;
     AttributeInfo[] attributes;
-
+    ClassFile classFile;
 
     public int getAccess_flags() {
         return access_flags;
@@ -55,7 +57,8 @@ public class MethodInfo {
         this.attributes = attributes;
     }
 
-    public MethodInfo(DataInputStream dataInputStream) throws IOException {
+    public MethodInfo(DataInputStream dataInputStream, ClassFile classFile) throws IOException {
+        this.classFile = classFile;
         this.access_flags = dataInputStream.readUnsignedShort();
         this.name_index = dataInputStream.readUnsignedShort();
         this.descriptor_index = dataInputStream.readUnsignedShort();
@@ -63,7 +66,7 @@ public class MethodInfo {
         if(this.attributes_count > 0 ) {
             this.attributes = new AttributeInfo[this.attributes_count];
             for(int i=0; i< this.attributes_count ; i++) {
-                this.attributes[i] = new AttributeInfo(dataInputStream);
+                this.attributes[i] = new AttributeInfo(dataInputStream, classFile);
             }
         }
     }

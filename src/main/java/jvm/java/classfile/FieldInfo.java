@@ -1,4 +1,6 @@
-package jvm.java.io;
+package jvm.java.classfile;
+
+import jvm.java.classfile.attribute.AttributeInfo;
 
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -12,9 +14,10 @@ public class FieldInfo {
     int descriptor_name;
     int attributes_count;
     AttributeInfo[] attributes;
+    ClassFile classFile;
 
-
-    public FieldInfo(DataInputStream dataInputStream) throws IOException {
+    public FieldInfo(DataInputStream dataInputStream, ClassFile classFile) throws IOException {
+        this.classFile = classFile;
         this.access_flag = dataInputStream. readUnsignedShort();
         this.name_index = dataInputStream.readUnsignedShort();
         this.descriptor_name=dataInputStream.readUnsignedShort();
@@ -22,7 +25,7 @@ public class FieldInfo {
         if(this.attributes_count > 0) {
             this.attributes = new AttributeInfo[this.attributes_count];;
             for (int i =0; i< this.getAttributes_count(); i++) {
-                this.attributes[i] = new AttributeInfo(dataInputStream);
+                this.attributes[i] = new AttributeInfo(dataInputStream, classFile);
             }
         }
     }

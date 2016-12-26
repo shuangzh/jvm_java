@@ -1,6 +1,7 @@
-package jvm.java.io;
+package jvm.java.classfile;
 
-import com.sun.xml.internal.ws.util.ByteArrayDataSource;
+import jvm.java.classfile.attribute.AttributeInfo;
+import jvm.java.classfile.constantpool.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
@@ -139,7 +140,7 @@ public class ClassFileParser {
             FieldInfo[] fields = new FieldInfo[field_count];
             classFile.setFields(fields);
             for (int i = 0; i < field_count; i++) {
-                fields[i] = new FieldInfo(dataInputStream);
+                fields[i] = new FieldInfo(dataInputStream, classFile);
             }
         }
     }
@@ -151,7 +152,7 @@ public class ClassFileParser {
             MethodInfo[] methods = new MethodInfo[method_count];
             classFile.setMethods( methods );
             for (int i = 0; i < method_count; i++) {
-                methods[i] = new MethodInfo(dataInputStream);
+                methods[i] = new MethodInfo(dataInputStream, classFile);
             }
         }
     }
@@ -163,10 +164,9 @@ public class ClassFileParser {
             AttributeInfo[] attributeInfos = new  AttributeInfo[attributes_count];
             classFile.setAttributes(attributeInfos);
             for(int i=0; i<attributes_count; i++) {
-                attributeInfos[i] = new AttributeInfo(dataInputStream);
+                attributeInfos[i] = new AttributeInfo(dataInputStream, classFile);
             }
         }
-
     }
 
 }

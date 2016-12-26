@@ -1,5 +1,7 @@
 package jvm.java.io;
 
+import jvm.java.classfile.ClassFile;
+import jvm.java.classfile.ClassFileParser;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -37,9 +39,6 @@ public class ClassReaderTest {
     public void testDefaultClassParser() throws IOException {
         DirClassReader dirClassReader = new DirClassReader(System.getProperty("user.dir")+"\\target\\classes");
         byte[] bytes=dirClassReader.getClassBytes("jvm.java.main.JVMMain");
-//        ClassFile classFile = new ClassFile(bytese);
-//        DefaultClassParser defaultClassParser = new DefaultClassParser();
-//        defaultClassParser.parse(classFile);
         ClassFileParser classFileParser = new ClassFileParser();
 
         ClassFile classFile = classFileParser.parse(bytes);

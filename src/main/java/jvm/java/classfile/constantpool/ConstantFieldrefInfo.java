@@ -1,4 +1,6 @@
-package jvm.java.io;
+package jvm.java.classfile.constantpool;
+
+import jvm.java.classfile.ClassFile;
 
 import java.io.DataInputStream;
 import java.io.IOException;

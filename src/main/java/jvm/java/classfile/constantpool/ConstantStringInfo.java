@@ -1,4 +1,4 @@
-package jvm.java.io;
+package jvm.java.classfile.constantpool;
 
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -10,7 +10,7 @@ public class ConstantStringInfo extends  ConstantInfo {
     int index;
 
     public ConstantStringInfo(DataInputStream dataInputStream) throws IOException {
-        this.setTag(ConstantInfo.TAG_ConstantStringInfo);
+        this.setTag(TAG_ConstantStringInfo);
         this.index = dataInputStream.readUnsignedShort();
     }
 }

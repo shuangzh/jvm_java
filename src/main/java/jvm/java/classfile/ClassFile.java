@@ -1,4 +1,7 @@
-package jvm.java.io;
+package jvm.java.classfile;
+
+import jvm.java.classfile.attribute.AttributeInfo;
+import jvm.java.classfile.constantpool.ConstantInfo;
 
 /**
  * Created by admin on 2016/12/23.
