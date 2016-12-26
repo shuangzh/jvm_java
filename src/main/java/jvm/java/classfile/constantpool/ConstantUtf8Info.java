@@ -10,6 +10,11 @@ public class ConstantUtf8Info extends  ConstantInfo {
 
     int length;
     byte[] bytes;
+
+    public String getValue() {
+        return value;
+    }
+
     String value;
 
     public  ConstantUtf8Info(DataInputStream dataInputStream) throws IOException {
