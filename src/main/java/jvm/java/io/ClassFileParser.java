@@ -10,14 +10,25 @@ import java.io.IOException;
  * Created by admin on 2016/12/25.
  */
 public class ClassFileParser {
-    public ClassFile parse(byte[] bytes) {
+    public ClassFile parse(byte[] bytes) throws IOException {
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
         DataInputStream dataInputStream = new DataInputStream(byteArrayInputStream);
         return parse(dataInputStream);
     }
 
-    public ClassFile parse(DataInputStream dataInputStream) {
+    public ClassFile parse(DataInputStream dataInputStream) throws IOException {
         ClassFile classFile = new ClassFile();
+
+        this.readMagic(dataInputStream, classFile);
+        this.readVersion(dataInputStream, classFile);
+        this.readConstantInfo(dataInputStream, classFile);
+        this.readAccessFlag(dataInputStream, classFile);
+        this.readThisClass(dataInputStream, classFile);
+        this.readSuperClass(dataInputStream, classFile);
+        this.readInterfaces(dataInputStream, classFile);
+        this.readFields(dataInputStream, classFile);
+        this.readMethods(dataInputStream, classFile);
+        this.readAttributes(dataInputStream, classFile);
 
         return classFile;
     }
@@ -39,6 +50,7 @@ public class ClassFileParser {
 
     public void readConstantInfo(DataInputStream dataInputStream, ClassFile classFile) throws IOException {
         int constant_pool_count = dataInputStream.readUnsignedShort();
+        classFile.setConstant_pool_count(constant_pool_count);
         classFile.constantInfoPool = new ConstantInfo[constant_pool_count];
         for (int i = 1; i < constant_pool_count; i++) {
             int tag = dataInputStream.readUnsignedByte();
@@ -87,13 +99,74 @@ public class ClassFileParser {
                     info = new ConstantInvokeDynamicInfo(dataInputStream);
                     break;
                 default:
-                    info = null;
                     throw new IOException("can't regnized tag " + tag);
             }
             classFile.constantInfoPool[i] = info;
         }
     }
 
+    public void readAccessFlag(DataInputStream dataInputStream, ClassFile classFile) throws IOException {
+        int access_flags = dataInputStream.readUnsignedShort();
+        classFile.setAccess_flags(access_flags);
+    }
 
+    public void readThisClass(DataInputStream dataInputStream, ClassFile classFile) throws IOException {
+        int this_class = dataInputStream.readUnsignedShort();
+        classFile.setThis_class(this_class);
+    }
+
+    public void readSuperClass(DataInputStream dataInputStream, ClassFile classFile) throws IOException {
+        int super_class = dataInputStream.readUnsignedShort();
+        classFile.setSuper_class(super_class);
+    }
+
+    public void readInterfaces(DataInputStream dataInputStream, ClassFile classFile) throws IOException {
+        int interfaces_count = dataInputStream.readUnsignedShort();
+        classFile.setInterfaces_count(interfaces_count);
+        if (interfaces_count > 0) {
+            int[] interfaces = new int[interfaces_count];
+            classFile.setInterfaces(interfaces);
+            for (int i = 0; i < interfaces_count; i++) {
+                interfaces[i] = dataInputStream.readUnsignedShort();
+            }
+        }
+    }
+
+    public void readFields(DataInputStream dataInputStream, ClassFile classFile) throws IOException {
+        int field_count = dataInputStream.readUnsignedShort();
+        classFile.setFields_count(field_count);
+        if (field_count > 0) {
+            FieldInfo[] fields = new FieldInfo[field_count];
+            classFile.setFields(fields);
+            for (int i = 0; i < field_count; i++) {
+                fields[i] = new FieldInfo(dataInputStream);
+            }
+        }
+    }
+
+    public void readMethods(DataInputStream dataInputStream, ClassFile classFile) throws IOException {
+        int method_count = dataInputStream.readUnsignedShort();
+        classFile.setMethods_count(method_count);
+        if (method_count > 0) {
+            MethodInfo[] methods = new MethodInfo[method_count];
+            classFile.setMethods( methods );
+            for (int i = 0; i < method_count; i++) {
+                methods[i] = new MethodInfo(dataInputStream);
+            }
+        }
+    }
+
+    public void readAttributes(DataInputStream dataInputStream, ClassFile classFile) throws IOException {
+        int attributes_count= dataInputStream.readUnsignedShort();
+        classFile.setAttributes_count(attributes_count);
+        if (attributes_count > 0) {
+            AttributeInfo[] attributeInfos = new  AttributeInfo[attributes_count];
+            classFile.setAttributes(attributeInfos);
+            for(int i=0; i<attributes_count; i++) {
+                attributeInfos[i] = new AttributeInfo(dataInputStream);
+            }
+        }
+
+    }
 
 }
