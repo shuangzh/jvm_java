@@ -7,7 +7,7 @@ import java.io.IOException;
  * Created by admin on 2016/12/26.
  */
 public class ConstantMethodTypeInfo  extends  ConstantInfo{
-    int descriptorIndex;
+    int descriptorIndex;            // u2
 
     public ConstantMethodTypeInfo(DataInputStream dataInputStream) throws IOException {
         this.setTag(TAG_ConstantMethodTypeInfo);

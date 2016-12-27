@@ -8,8 +8,8 @@ import java.io.IOException;
  */
 public class ExceptionsAttribute extends AttributeInfo {
 
-    int number_of_exceptions;
-    int[] exception_index_table;
+    int number_of_exceptions;           // u2
+    int[] exception_index_table;        // u2
 
     public ExceptionsAttribute(AttributeInfo attributeInfo) throws IOException {
         super(attributeInfo);

@@ -1,6 +1,7 @@
 package jvm.java.classfile;
 
 import jvm.java.classfile.attribute.AttributeInfo;
+import jvm.java.classfile.attribute.AttributeReBuilder;
 import jvm.java.classfile.constantpool.*;
 
 import java.io.ByteArrayInputStream;
@@ -11,6 +12,7 @@ import java.io.IOException;
  * Created by admin on 2016/12/25.
  */
 public class ClassFileParser {
+
     public ClassFile parse(byte[] bytes) throws IOException {
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
         DataInputStream dataInputStream = new DataInputStream(byteArrayInputStream);
@@ -165,6 +167,7 @@ public class ClassFileParser {
             classFile.setAttributes(attributeInfos);
             for(int i=0; i<attributes_count; i++) {
                 attributeInfos[i] = new AttributeInfo(dataInputStream, classFile);
+                attributeInfos[i] = AttributeReBuilder.build(attributeInfos[i]);
             }
         }
     }

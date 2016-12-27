@@ -8,7 +8,7 @@ import java.io.IOException;
  */
 public class ConstantUtf8Info extends  ConstantInfo {
 
-    int length;
+    int length;         // u2
     byte[] bytes;
 
     public String getValue() {

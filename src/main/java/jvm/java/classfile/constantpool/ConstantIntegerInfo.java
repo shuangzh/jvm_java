@@ -7,7 +7,7 @@ import java.io.IOException;
  * Created by admin on 2016/12/26.
  */
 public class ConstantIntegerInfo extends ConstantInfo {
-    int intValue;
+    int intValue;       // u4
 
     public  ConstantIntegerInfo(DataInputStream dataInputStream) throws IOException {
         this.setTag(TAG_ConstantIntegerInfo);

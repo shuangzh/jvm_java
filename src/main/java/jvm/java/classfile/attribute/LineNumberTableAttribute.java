@@ -7,7 +7,7 @@ import java.io.IOException;
  * Created by admin on 2016/12/27.
  */
 public class LineNumberTableAttribute  extends  AttributeInfo {
-    int line_number_table_length;
+    int line_number_table_length;           // u2
     LineNumberInfo[] line_number_table;
 
     public LineNumberTableAttribute(AttributeInfo attributeInfo) throws IOException {
@@ -23,8 +23,8 @@ public class LineNumberTableAttribute  extends  AttributeInfo {
     }
 
     class LineNumberInfo {
-        int start_pc;
-        int line_number;
+        int start_pc;           // u2
+        int line_number;        // u2
         LineNumberInfo(DataInputStream dataInputStream) throws IOException {
             this.start_pc = dataInputStream.readUnsignedShort();
             this.line_number = dataInputStream.readUnsignedShort();

@@ -9,7 +9,7 @@ import java.io.IOException;
  * Created by admin on 2016/12/26.
  */
 public class ConstantClassInfo extends ConstantInfo {
-    final int index;
+    final int index;    // u2
 
     ClassFile classFile;
 

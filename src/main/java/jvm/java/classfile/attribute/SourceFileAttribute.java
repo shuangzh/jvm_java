@@ -8,7 +8,7 @@ import java.io.IOException;
  */
 public class SourceFileAttribute extends AttributeInfo {
 
-    int sourcefile_index;
+    int sourcefile_index;       // u2
 
     public SourceFileAttribute(AttributeInfo attributeInfo) throws IOException {
         super(attributeInfo);

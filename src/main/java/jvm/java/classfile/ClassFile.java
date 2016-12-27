@@ -7,21 +7,21 @@ import jvm.java.classfile.constantpool.ConstantInfo;
  * Created by admin on 2016/12/23.
  */
 public class ClassFile {
-    int magic;                       // u4
-    int  minor_version;             // u2
-    int major_version;             // u2
-    int  constant_pool_count;       // u2
+    int magic;                          // u4
+    int  minor_version;                 // u2
+    int major_version;                  // u2
+    int  constant_pool_count;           // u2
     ConstantInfo[] constantInfoPool;
-    int access_flags;               // u2
-    int this_class;                 // u2
-    int super_class;                // u2
-    int interfaces_count;           // u2
-    int[] interfaces;               // u2
-    int fields_count;               // u2;
+    int access_flags;                   // u2
+    int this_class;                     // u2
+    int super_class;                    // u2
+    int interfaces_count;               // u2
+    int[] interfaces;                   // u2
+    int fields_count;                   // u2;
     FieldInfo[] fields;
-    int methods_count;              // u2;
+    int methods_count;                  // u2;
     MethodInfo[] methods;
-    int attributes_count;           // u2;
+    int attributes_count;               // u2;
     AttributeInfo[] attributes;
 
     public int getMagic() {

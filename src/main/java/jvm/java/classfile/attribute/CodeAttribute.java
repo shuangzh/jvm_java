@@ -9,13 +9,13 @@ import java.io.IOException;
  */
 public class CodeAttribute  extends AttributeInfo {
 
-    int max_stack;
-    int max_locals;
-    int code_length;
+    int max_stack;              // u2
+    int max_locals;             // u2
+    int code_length;            // u4
     byte[] code;
-    int exception_table_length;
+    int exception_table_length;     // u2
     ExceptionTable[] exceptionTables;
-    int attributes_count;
+    int attributes_count;           // u2
     AttributeInfo[] attributes;
 
     public CodeAttribute(AttributeInfo attributeInfo) throws IOException {
@@ -44,8 +44,8 @@ public class CodeAttribute  extends AttributeInfo {
             this.attributes = new AttributeInfo[attributes_count];
             for(int i =0 ; i<attributes_count; i++){
                 this.attributes[i]= new AttributeInfo(dataInputStream, this.classFile);
+                attributes[i] = AttributeReBuilder.build(attributes[i]);
             }
         }
     }
-
 }

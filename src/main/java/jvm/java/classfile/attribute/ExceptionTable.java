@@ -9,10 +9,10 @@ import java.io.IOException;
  * Created by admin on 2016/12/26.
  */
 public class ExceptionTable {
-    int start_pc;
-    int end_pc;
-    int handler_pc;
-    int catch_type;
+    int start_pc;       // u2
+    int end_pc;         // u2
+    int handler_pc;     // u2
+    int catch_type;     // u2
 
     public ExceptionTable(DataInputStream dataInputStream) throws IOException {
         this.start_pc = dataInputStream.readUnsignedShort();

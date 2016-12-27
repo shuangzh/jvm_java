@@ -8,7 +8,7 @@ import java.io.IOException;
  */
 public class ConstantValueAttribute extends AttributeInfo {
 
-    int constantvalue_index;
+    int constantvalue_index;        // u2
 
     public ConstantValueAttribute(AttributeInfo attributeInfo) throws IOException {
         super(attributeInfo);

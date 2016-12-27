@@ -7,8 +7,8 @@ import java.io.IOException;
  * Created by admin on 2016/12/26.
  */
 public class ConstantNameAndTypeInfo extends ConstantInfo {
-    int nameIndex;
-    int descriptorIndex;
+    int nameIndex;              // u2
+    int descriptorIndex;        // u2
 
     public ConstantNameAndTypeInfo(DataInputStream dataInputStream) throws IOException {
         this.setTag(TAG_ConstantNameAndTypeInfo);

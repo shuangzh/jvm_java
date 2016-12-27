@@ -7,7 +7,7 @@ import java.io.IOException;
  * Created by admin on 2016/12/26.
  */
 public class ConstantLongInfo extends  ConstantInfo {
-    long longValue;
+    long longValue;         // u8
 
     public ConstantLongInfo(DataInputStream dataInputStream) throws IOException {
         this.setTag(TAG_ConstantLongInfo);

@@ -20,7 +20,7 @@ public class ConstantInfo {
     public final static int TAG_ConstantMethodTypeInfo = 16;
     public final static int TAG_ConstantInvokeDynamicInfo = 18;
 
-    int tag;
+    int tag;        // u1
 
     public int getTag() {
         return tag;

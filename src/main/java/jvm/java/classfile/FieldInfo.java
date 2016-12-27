@@ -1,6 +1,7 @@
 package jvm.java.classfile;
 
 import jvm.java.classfile.attribute.AttributeInfo;
+import jvm.java.classfile.attribute.AttributeReBuilder;
 
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -9,10 +10,10 @@ import java.io.IOException;
  * Created by admin on 2016/12/25.
  */
 public class FieldInfo {
-    int access_flag;
-    int name_index;
-    int descriptor_name;
-    int attributes_count;
+    int access_flag;            // u2
+    int name_index;             // u2
+    int descriptor_name;        // u2
+    int attributes_count;       // u2
     AttributeInfo[] attributes;
     ClassFile classFile;
 
@@ -26,6 +27,7 @@ public class FieldInfo {
             this.attributes = new AttributeInfo[this.attributes_count];;
             for (int i =0; i< this.getAttributes_count(); i++) {
                 this.attributes[i] = new AttributeInfo(dataInputStream, classFile);
+                attributes[i] = AttributeReBuilder.build(attributes[i]);
             }
         }
     }
