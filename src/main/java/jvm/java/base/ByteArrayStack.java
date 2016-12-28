@@ -1,27 +1,18 @@
-package jvm.java.runtime;
-
-import java.io.ByteArrayInputStream;
-import java.io.DataInputStream;
-import java.io.EOFException;
-import java.util.DoubleSummaryStatistics;
+package jvm.java.base;
 
 /**
  * Created by admin on 2016/12/28.
  */
-public class ByteArrayStack {
+public class ByteArrayStack  extends ByteArray{
     int pos;
-    int size;
-    byte[] buf;
 
     public ByteArrayStack(byte[] buf) {
-        this.buf = buf;
-        this.size = buf.length;
+        super(buf);
         this.pos = 0;
     }
 
     public ByteArrayStack(int size) {
-        this.buf = new byte[size];
-        this.size = size;
+        super(size);
         this.pos = 0;
     }
 
@@ -65,74 +56,51 @@ public class ByteArrayStack {
     }
 
     public int popByte() {
-        int i = buf[pos--] & 0xFF;
-        return i;
+      return  this.getUnsignedByte(--pos);
     }
 
     public void pushByte(int i) {
-        buf[pos++] = (byte) i;
-    }
-
-    public void pushByte(byte b) {
-        buf[pos++] = b;
+        this.setByte(pos++, i);
     }
 
     public int popInt() {
-        int ch1 = buf[pos - 4];
-        int ch2 = buf[pos - 3];
-        int ch3 = buf[pos - 2];
-        int ch4 = buf[pos - 1];
         pos -= 4;
-        return ((ch1 << 24) + (ch2 << 16) + (ch3 << 8) + (ch4 << 0));
+        return this.getInt(pos);
     }
 
     public void pushInt(int i) {
-        buf[pos + 0] = (byte) ((i >>> 24) & 0xFF);
-        buf[pos + 1] = (byte) ((i >>> 16) & 0xFF);
-        buf[pos + 2] = (byte) ((i >>> 8) & 0xFF);
-        buf[pos + 3] = (byte) ((i >>> 0) & 0xFF);
+        this.setInt(pos, i);
         pos += 4;
     }
 
     public long popLong() {
-        long l = (((long) buf[pos - 8] << 56) +
-                ((long) (buf[pos - 7] & 255) << 48) +
-                ((long) (buf[pos - 6] & 255) << 40) +
-                ((long) (buf[pos - 5] & 255) << 32) +
-                ((long) (buf[pos - 4] & 255) << 24) +
-                ((buf[pos - 3] & 255) << 16) +
-                ((buf[pos - 2] & 255) << 8) +
-                ((buf[pos - 1] & 255) << 0));
         pos -= 8;
-        return l;
+        return this.getLong(pos);
     }
 
     public void pushLong(long v) {
-        buf[pos + 0] = (byte) (v >>> 56);
-        buf[pos + 1] = (byte) (v >>> 48);
-        buf[pos + 2] = (byte) (v >>> 40);
-        buf[pos + 3] = (byte) (v >>> 32);
-        buf[pos + 4] = (byte) (v >>> 24);
-        buf[pos + 5] = (byte) (v >>> 16);
-        buf[pos + 6] = (byte) (v >>> 8);
-        buf[pos + 7] = (byte) (v >>> 0);
+        this.setLong(pos, v);
         pos += 8;
     }
 
     public float popFloat() {
-        return Float.intBitsToFloat(this.popInt());
+        pos -= 4;
+        return  this.getFloat(pos);
     }
 
     public void pushFloat(float f) {
-        this.pushInt(Float.floatToIntBits(f));
+        this.setFloat(pos, f);
+        pos += 4;
     }
 
     public double popDouble() {
-        return Double.longBitsToDouble(this.popLong());
+        pos -=8;
+        return this.getDouble(pos);
     }
 
     public void pushDouble(double d) {
-        this.pushLong(Double.doubleToLongBits(d));
+        this.setDouble(pos, d);
+        pos +=8;
     }
 
     public void reset() {

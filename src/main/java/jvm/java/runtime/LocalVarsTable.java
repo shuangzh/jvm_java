@@ -1,5 +1,7 @@
 package jvm.java.runtime;
 
+import jvm.java.base.ByteArrayStack;
+
 /**
  * Created by admin on 2016/12/28.
  */

@@ -2,6 +2,8 @@ package jvm.java.classfile;
 
 import jvm.java.classfile.attribute.AttributeInfo;
 import jvm.java.classfile.attribute.AttributeReBuilder;
+import jvm.java.classfile.attribute.CodeAttribute;
+import jvm.java.classfile.constantpool.ConstantUtf8Info;
 
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -64,12 +66,24 @@ public class MethodInfo {
         this.name_index = dataInputStream.readUnsignedShort();
         this.descriptor_index = dataInputStream.readUnsignedShort();
         this.attributes_count = dataInputStream.readUnsignedShort();
-        if(this.attributes_count > 0 ) {
+        if (this.attributes_count > 0) {
             this.attributes = new AttributeInfo[this.attributes_count];
-            for(int i=0; i< this.attributes_count ; i++) {
+            for (int i = 0; i < this.attributes_count; i++) {
                 this.attributes[i] = new AttributeInfo(dataInputStream, classFile);
                 attributes[i] = AttributeReBuilder.build(attributes[i]);
             }
         }
+    }
+
+    public CodeAttribute getCodeAttribute() {
+        CodeAttribute ca = null;
+        if (attributes.length > 0) {
+            for (AttributeInfo ai : attributes) {
+                if (ai instanceof CodeAttribute) {
+                    return (CodeAttribute) ai;
+                }
+            }
+        }
+        return ca;
     }
 }

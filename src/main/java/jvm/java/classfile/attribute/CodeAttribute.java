@@ -13,6 +13,35 @@ public class CodeAttribute  extends AttributeInfo {
     int max_locals;             // u2
     int code_length;            // u4
     byte[] code;
+
+    public int getMax_stack() {
+        return max_stack;
+    }
+
+    public int getMax_locals() {
+        return max_locals;
+    }
+
+    public int getCode_length() {
+        return code_length;
+    }
+
+    public int getException_table_length() {
+        return exception_table_length;
+    }
+
+    public ExceptionTable[] getExceptionTables() {
+        return exceptionTables;
+    }
+
+    public int getAttributes_count() {
+        return attributes_count;
+    }
+
+    public AttributeInfo[] getAttributes() {
+        return attributes;
+    }
+
     int exception_table_length;     // u2
     ExceptionTable[] exceptionTables;
     int attributes_count;           // u2
@@ -47,5 +76,9 @@ public class CodeAttribute  extends AttributeInfo {
                 attributes[i] = AttributeReBuilder.build(attributes[i]);
             }
         }
+    }
+
+    public byte[] getCode() {
+        return code;
     }
 }
