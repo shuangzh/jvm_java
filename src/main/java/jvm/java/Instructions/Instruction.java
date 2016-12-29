@@ -24,6 +24,12 @@ public abstract class Instruction {
 
     protected String name;
 
+    public int BC() {
+        return bc;
+    }
+
+    protected int bc;
+
     public abstract void fetchOperands(CodeReader codeReader);
 
     public abstract void execute(StackFrame stackFrame);

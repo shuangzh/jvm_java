@@ -9,6 +9,7 @@ public class Nop extends NoOperandsInst {
 
     public Nop() {
         this.name = "nop";
+        this.bc =0;
     }
 
     public void execute(StackFrame stackFrame) {

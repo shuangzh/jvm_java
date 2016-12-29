@@ -1,5 +1,7 @@
 package jvm.java.runtime;
 
+import jvm.java.Instructions.Instruction;
+import jvm.java.Instructions.InstructionHolder;
 import jvm.java.classfile.MethodInfo;
 import jvm.java.classfile.attribute.CodeAttribute;
 
@@ -56,6 +58,19 @@ public class StackFrame {
         codeReader = new CodeReader(codeAttribute.getCode());
     }
 
+    public void setNextPC(int nextPC) {
+        this.nextPC = nextPC;
+    }
 
-
+    public  void  loop()
+    {
+        for (;;) {
+            int pc = this.getNextPC();
+            int opcode = this.codeReader.readInstructionCode(pc);
+            Instruction inst = InstructionHolder.getInstruction(opcode);
+            inst.fetchOperands(codeReader);
+            this.setNextPC(codeReader.PC());
+            inst.execute(this);
+        }
+    }
 }

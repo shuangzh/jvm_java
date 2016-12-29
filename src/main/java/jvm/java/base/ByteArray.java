@@ -18,10 +18,10 @@ public class ByteArray {
     }
 
     public int getInt(int index) {
-        int ch1 = buf[index + 0];
-        int ch2 = buf[index + 1];
-        int ch3 = buf[index + 2];
-        int ch4 = buf[index + 3];
+        int ch1 = buf[index + 0] & 0xFF;
+        int ch2 = buf[index + 1] & 0xFF;
+        int ch3 = buf[index + 2] & 0xFF;
+        int ch4 = buf[index + 3] & 0xFF;
         return ((ch1 << 24) + (ch2 << 16) + (ch3 << 8) + (ch4 << 0));
     }
 
@@ -84,11 +84,15 @@ public class ByteArray {
     }
 
     public short getShort(int index) {
-        return (short) (buf[index] << 8 + buf[index + 1]);
+        int b1= buf[index] & 0xFF;
+        int b2= buf[index +1] & 0xFF;
+        return (short) ( (b1 << 8) | b2 );
     }
 
     public int getUnsignedShort(int index) {
-        return buf[index] << 8 + buf[index + 1];
+        int b1 = buf[index] & 0xFF;
+        int b2 = buf[index + 1] & 0xFF;
+        return  ( b1<< 8 ) | b2;
     }
 
     public void setShort(int index, short s) {
