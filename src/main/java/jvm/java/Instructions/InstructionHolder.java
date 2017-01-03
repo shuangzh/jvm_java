@@ -14,7 +14,7 @@ import java.util.Map;
  */
 public class InstructionHolder {
 
-    private static Map<Integer, Instruction> instructionMap = new HashMap<>();
+    private static Map<Integer, Instruction> instructionMap = new HashMap<Integer, Instruction>();
 
     static {
         Instruction inst=null;

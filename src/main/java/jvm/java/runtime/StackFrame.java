@@ -47,8 +47,7 @@ public class StackFrame {
     MethodInfo methodInfo;
     ThreadStack threadStack;
 
-    public StackFrame(ThreadStack threadStack, MethodInfo methodInfo)
-    {
+    public StackFrame(ThreadStack threadStack, MethodInfo methodInfo) {
         this.threadStack = threadStack;
         this.methodInfo = methodInfo;
         codeAttribute = this.methodInfo.getCodeAttribute();
@@ -62,15 +61,18 @@ public class StackFrame {
         this.nextPC = nextPC;
     }
 
-    public  void  loop()
-    {
-        for (;;) {
-            int pc = this.getNextPC();
-            int opcode = this.codeReader.readInstructionCode(pc);
-            Instruction inst = InstructionHolder.getInstruction(opcode);
-            inst.fetchOperands(codeReader);
-            this.setNextPC(codeReader.PC());
-            inst.execute(this);
+    public void loop() {
+        for (; ; ) {
+            this.execute();
         }
+    }
+
+    public void execute() {
+        int pc = this.getNextPC();
+        int opcode = this.codeReader.readInstructionCode(pc);
+        Instruction inst = InstructionHolder.getInstruction(opcode);
+        inst.fetchOperands(codeReader);
+        this.setNextPC(codeReader.PC());
+        inst.execute(this);
     }
 }
