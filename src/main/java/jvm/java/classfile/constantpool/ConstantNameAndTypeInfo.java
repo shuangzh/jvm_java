@@ -15,4 +15,20 @@ public class ConstantNameAndTypeInfo extends ConstantInfo {
         this.nameIndex = dataInputStream.readUnsignedShort();
         this.descriptorIndex = dataInputStream.readUnsignedShort();
     }
+
+    public int getNameIndex() {
+        return nameIndex;
+    }
+
+    public int getDescriptorIndex() {
+        return descriptorIndex;
+    }
+
+    public String getName() {
+        return classFile.getConstantUtf8InfoValue(nameIndex);
+    }
+
+    public String getDescriptor(){
+        return classFile.getConstantUtf8InfoValue(descriptorIndex);
+    }
 }

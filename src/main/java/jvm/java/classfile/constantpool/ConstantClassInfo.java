@@ -9,12 +9,18 @@ import java.io.IOException;
  * Created by admin on 2016/12/26.
  */
 public class ConstantClassInfo extends ConstantInfo {
-    final int index;    // u2
-
-    ClassFile classFile;
+    final int name_index;    // u2
 
     public ConstantClassInfo(DataInputStream dataInputStream) throws IOException {
         this.setTag(ConstantInfo.TAG_ConstantClassInfo);
-        this.index = dataInputStream.readUnsignedShort();
+        this.name_index = dataInputStream.readUnsignedShort();
+    }
+
+    public int getName_index() {
+        return name_index;
+    }
+
+    public String getClassName() {
+        return  this.classFile.getConstantUtf8InfoValue(this.name_index);
     }
 }

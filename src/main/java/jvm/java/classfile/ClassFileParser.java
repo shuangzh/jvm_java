@@ -105,6 +105,7 @@ public class ClassFileParser {
                     throw new IOException("can't regnized tag " + tag);
             }
             classFile.constantInfoPool[i] = info;
+            info.setClassFile(classFile);
             if (tag == ConstantInfo.TAG_ConstantLongInfo || tag == ConstantInfo.TAG_ConstantDoubleInfo)
                 i++;
         }

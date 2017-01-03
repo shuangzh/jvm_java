@@ -12,7 +12,7 @@ import java.io.IOException;
 public class FieldInfo {
     int access_flag;            // u2
     int name_index;             // u2
-    int descriptor_name;        // u2
+    int descriptor_index;        // u2
     int attributes_count;       // u2
     AttributeInfo[] attributes;
     ClassFile classFile;
@@ -21,7 +21,7 @@ public class FieldInfo {
         this.classFile = classFile;
         this.access_flag = dataInputStream. readUnsignedShort();
         this.name_index = dataInputStream.readUnsignedShort();
-        this.descriptor_name=dataInputStream.readUnsignedShort();
+        this.descriptor_index =dataInputStream.readUnsignedShort();
         this.attributes_count =dataInputStream.readUnsignedShort();
         if(this.attributes_count > 0) {
             this.attributes = new AttributeInfo[this.attributes_count];;
@@ -49,12 +49,12 @@ public class FieldInfo {
         this.name_index = name_index;
     }
 
-    public int getDescriptor_name() {
-        return descriptor_name;
+    public int getDescriptor_index() {
+        return descriptor_index;
     }
 
-    public void setDescriptor_name(int descriptor_name) {
-        this.descriptor_name = descriptor_name;
+    public void setDescriptor_index(int descriptor_index) {
+        this.descriptor_index = descriptor_index;
     }
 
     public int getAttributes_count() {

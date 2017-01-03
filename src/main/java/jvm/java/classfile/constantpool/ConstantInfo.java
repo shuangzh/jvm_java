@@ -1,5 +1,7 @@
 package jvm.java.classfile.constantpool;
 
+import jvm.java.classfile.ClassFile;
+
 /**
  * Created by admin on 2016/12/23.
  */
@@ -22,11 +24,21 @@ public class ConstantInfo {
 
     int tag;        // u1
 
+    ClassFile classFile;
+
     public int getTag() {
         return tag;
     }
 
     public void setTag(int tag) {
         this.tag = tag;
+    }
+
+    public ClassFile getClassFile() {
+        return classFile;
+    }
+
+    public void setClassFile(ClassFile classFile) {
+        this.classFile = classFile;
     }
 }

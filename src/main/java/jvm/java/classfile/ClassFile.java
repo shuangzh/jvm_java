@@ -1,7 +1,9 @@
 package jvm.java.classfile;
 
 import jvm.java.classfile.attribute.AttributeInfo;
+import jvm.java.classfile.constantpool.ConstantClassInfo;
 import jvm.java.classfile.constantpool.ConstantInfo;
+import jvm.java.classfile.constantpool.ConstantUtf8Info;
 
 /**
  * Created by admin on 2016/12/23.
@@ -150,5 +152,19 @@ public class ClassFile {
 
     public void setAttributes(AttributeInfo[] attributes) {
         this.attributes = attributes;
+    }
+
+    public  String  getConstantUtf8InfoValue(int index) {
+        return  ((ConstantUtf8Info)this.constantInfoPool[index]).getValue();
+    }
+
+    public String getThisClassName() {
+        ConstantClassInfo constantClassInfo= (ConstantClassInfo) constantInfoPool[this_class];
+        return constantClassInfo.getClassName();
+    }
+
+    public String getSuperClassName(){
+        ConstantClassInfo constantClassInfo= (ConstantClassInfo) constantInfoPool[super_class];
+        return constantClassInfo.getClassName();
     }
 }
