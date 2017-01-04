@@ -7,7 +7,7 @@ import java.util.Stack;
  */
 public class ThreadStack {
 
-    private Stack<StackFrame> stack = null;
+    private Stack<StackFrame> stack = new Stack<>();
 
     public void pushFrame(StackFrame stackFrame) {
         this.stack.push(stackFrame);

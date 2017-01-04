@@ -1,5 +1,8 @@
 package jvm.java.loader;
 
+import jvm.java.base.SlotArray;
+import jvm.java.classfile.constantpool.ConstantInfo;
+
 /**
  * Created by admin on 2017/1/3.
  */
@@ -15,7 +18,19 @@ public class ClassObject{
 
     ClassObjectLoader loader;
 
-    ConstantPool constantpool;
+    ConstantInfo[] constantpool;
+
+    int instanceSlotCount;
+    int staticSlotCount;
+    SlotArray  staticSlots;
+
+    public ConstantInfo[] getConstantpool() {
+        return constantpool;
+    }
+
+    public void setConstantpool(ConstantInfo[] constantpool) {
+        this.constantpool = constantpool;
+    }
 
     public int getAccess_flag() {
         return access_flag;
@@ -73,11 +88,4 @@ public class ClassObject{
         this.loader = loader;
     }
 
-    public ConstantPool getConstantpool() {
-        return constantpool;
-    }
-
-    public void setConstantpool(ConstantPool constantpool) {
-        this.constantpool = constantpool;
-    }
 }

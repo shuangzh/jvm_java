@@ -13,4 +13,8 @@ public class ConstantLongInfo extends  ConstantInfo {
         this.setTag(TAG_ConstantLongInfo);
         this.longValue = dataInputStream.readLong();
     }
+
+    public long getLongValue() {
+        return longValue;
+    }
 }

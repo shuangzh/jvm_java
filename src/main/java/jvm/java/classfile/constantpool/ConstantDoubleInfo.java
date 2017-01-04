@@ -13,4 +13,8 @@ public class ConstantDoubleInfo extends ConstantInfo {
         this.setTag(TAG_ConstantDoubleInfo);
         this.doubleValue = dataInputStream.readDouble();
     }
+
+    public double getDoubleValue() {
+        return doubleValue;
+    }
 }

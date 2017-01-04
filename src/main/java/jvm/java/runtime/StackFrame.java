@@ -4,6 +4,7 @@ import jvm.java.Instructions.Instruction;
 import jvm.java.Instructions.InstructionHolder;
 import jvm.java.classfile.MethodInfo;
 import jvm.java.classfile.attribute.CodeAttribute;
+import jvm.java.loader.Method;
 
 /**
  * Created by admin on 2016/12/28.
@@ -46,6 +47,7 @@ public class StackFrame {
 
     MethodInfo methodInfo;
     ThreadStack threadStack;
+    Method method;
 
     public StackFrame(ThreadStack threadStack, MethodInfo methodInfo) {
         this.threadStack = threadStack;
@@ -55,6 +57,15 @@ public class StackFrame {
         localVarsTable = new LocalVarsTable(codeAttribute.getMax_locals());
         operandStack = new OperandStack(codeAttribute.getMax_stack());
         codeReader = new CodeReader(codeAttribute.getCode());
+    }
+
+    public StackFrame(ThreadStack threadStack, Method method) {
+        this.threadStack = threadStack;
+        this.method= method;
+
+        localVarsTable = new LocalVarsTable(method.getMaxLocals());
+        operandStack = new OperandStack(method.getMaxStack());
+        codeReader=new CodeReader(method.getCode());
     }
 
     public void setNextPC(int nextPC) {

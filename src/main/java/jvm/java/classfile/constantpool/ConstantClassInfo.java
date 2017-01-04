@@ -1,6 +1,6 @@
 package jvm.java.classfile.constantpool;
 
-import jvm.java.classfile.ClassFile;
+import jvm.java.loader.ClassObject;
 
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -10,6 +10,9 @@ import java.io.IOException;
  */
 public class ConstantClassInfo extends ConstantInfo {
     final int name_index;    // u2
+
+    // 目标class对象
+    ClassObject targetClassObject;
 
     public ConstantClassInfo(DataInputStream dataInputStream) throws IOException {
         this.setTag(ConstantInfo.TAG_ConstantClassInfo);
@@ -22,5 +25,15 @@ public class ConstantClassInfo extends ConstantInfo {
 
     public String getClassName() {
         return  this.classFile.getConstantUtf8InfoValue(this.name_index);
+    }
+
+
+
+    public ClassObject getTargetClassObject() {
+        return targetClassObject;
+    }
+
+    public void setTargetClassObject(ClassObject targetClassObject) {
+        this.targetClassObject = targetClassObject;
     }
 }

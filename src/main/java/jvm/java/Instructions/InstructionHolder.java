@@ -66,6 +66,8 @@ public class InstructionHolder {
         inst = new Istore_3();
         instructionMap.put(inst.BC(), inst);
 
+
+
     }
 
 

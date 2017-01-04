@@ -12,6 +12,7 @@ public class Method{
     String name;
     String descriptor;
     ClassObject classObject;
+    MethodInfo methodInfo;
     byte[] code;
     int maxStack;
     int maxLocals;
@@ -22,6 +23,9 @@ public class Method{
         this.descriptor = classFile.getConstantUtf8InfoValue(methodInfo.getDescriptor_index());
         this.classObject = classObject;
         this.code = methodInfo.getCodeAttribute().getCode();
+        this.maxLocals = methodInfo.getCodeAttribute().getMax_locals();
+        this.maxStack = methodInfo.getCodeAttribute().getMax_stack();
+        this.methodInfo = methodInfo;
     }
 
     public int getAccess_flag() {

@@ -13,4 +13,9 @@ public class ConstantMethodTypeInfo  extends  ConstantInfo{
         this.setTag(TAG_ConstantMethodTypeInfo);
         this.descriptorIndex = dataInputStream.readUnsignedShort();
     }
+
+    public String getDescriptor() {
+        return classFile.getConstantUtf8InfoValue(descriptorIndex);
+    };
+
 }
