@@ -1,4 +1,6 @@
-package jvm.java.base;
+package jvm.java.runtime;
+
+import jvm.java.base.JObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,7 +13,7 @@ public class RefHolder {
     AtomicInteger atomicInteger = new AtomicInteger();
     Map<Integer, Object> refMap=new HashMap<Integer,Object>();
 
-    public int saveNewObject(RefObject obj) {
+    public int saveNewObject(JObject obj) {
         int i= 0;
         for (;;) {
             i=atomicInteger.getAndIncrement();

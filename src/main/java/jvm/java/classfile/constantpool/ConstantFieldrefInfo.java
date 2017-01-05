@@ -1,7 +1,6 @@
 package jvm.java.classfile.constantpool;
 
-import jvm.java.classfile.ClassFile;
-import jvm.java.loader.Field;
+import jvm.java.loader.JField;
 
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -13,7 +12,7 @@ public class ConstantFieldrefInfo extends ConstantInfo {
     int classInfoIndex;     // u2
     int nameAndTypeIndex;   // u2
 
-    Field   targetField;
+    JField targetField;
 
     public ConstantFieldrefInfo(DataInputStream dataInputStream) throws IOException {
         this.setTag(TAG_ConstantFieldrefInfo);
@@ -44,11 +43,11 @@ public class ConstantFieldrefInfo extends ConstantInfo {
         return  constantNameAndTypeInfo.getDescriptor();
     }
 
-    public Field getTargetField() {
+    public JField getTargetField() {
         return targetField;
     }
 
-    public void setTargetField(Field targetField) {
+    public void setTargetField(JField targetField) {
         this.targetField = targetField;
     }
 }

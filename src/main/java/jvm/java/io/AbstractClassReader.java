@@ -16,6 +16,11 @@ public abstract class AbstractClassReader  implements ClassReader{
         this.location = location;
     }
 
+    public AbstractClassReader()
+    {
+
+    }
+
     public byte[] getClassBytes(String classname){
         byte[]  bytes=null;
         bytes = cache.get(classname);
@@ -37,5 +42,9 @@ public abstract class AbstractClassReader  implements ClassReader{
 
     public String getLocation() {
         return  location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 }

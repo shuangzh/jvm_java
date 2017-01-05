@@ -6,6 +6,7 @@ package jvm.java.io;
 
 public interface ClassReader {
     String getLocation();
+    void  setLocation(String location);
     byte[] getClassBytes(String classname);
 
 }

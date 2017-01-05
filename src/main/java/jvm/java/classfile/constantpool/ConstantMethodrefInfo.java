@@ -1,6 +1,6 @@
 package jvm.java.classfile.constantpool;
 
-import jvm.java.loader.Field;
+import jvm.java.loader.JField;
 
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -28,13 +28,13 @@ public class ConstantMethodrefInfo extends ConstantFieldrefInfo {
 
     @Deprecated
     @Override
-    public Field getTargetField() {
+    public JField getTargetField() {
         throw new RuntimeException("ConstantMethodrefInfo don't have Field, can't invoke this method 'getTargetField'");
     }
 
     @Deprecated
     @Override
-    public void setTargetField(Field targetField) {
+    public void setTargetField(JField targetField) {
        throw new RuntimeException("ConstantMethodrefInfo don't have Field, can't invoke this method 'setTargetField'");
     }
 }

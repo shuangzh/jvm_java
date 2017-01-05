@@ -4,7 +4,7 @@ import jvm.java.Instructions.Instruction;
 import jvm.java.Instructions.InstructionHolder;
 import jvm.java.classfile.MethodInfo;
 import jvm.java.classfile.attribute.CodeAttribute;
-import jvm.java.loader.Method;
+import jvm.java.loader.JMethod;
 
 /**
  * Created by admin on 2016/12/28.
@@ -47,7 +47,7 @@ public class StackFrame {
 
     MethodInfo methodInfo;
     ThreadStack threadStack;
-    Method method;
+    JMethod method;
 
     public StackFrame(ThreadStack threadStack, MethodInfo methodInfo) {
         this.threadStack = threadStack;
@@ -59,7 +59,7 @@ public class StackFrame {
         codeReader = new CodeReader(codeAttribute.getCode());
     }
 
-    public StackFrame(ThreadStack threadStack, Method method) {
+    public StackFrame(ThreadStack threadStack, JMethod method) {
         this.threadStack = threadStack;
         this.method= method;
 
