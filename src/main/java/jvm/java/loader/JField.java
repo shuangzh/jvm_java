@@ -53,8 +53,8 @@ public class JField {
         return classObject;
     }
 
-    public JType getJType(){
-        String first = descriptor.substring(0,1);
-        return JType.transform(first);
+    public String getType() {
+        return  this.descriptor.substring(0,1);
     }
+
 }

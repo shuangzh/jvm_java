@@ -2,6 +2,9 @@ package jvm.java.Instructions;
 
 import jvm.java.Instructions.constants.Bipush;
 import jvm.java.Instructions.constants.Sipush;
+import jvm.java.Instructions.invoke.IReturn;
+import jvm.java.Instructions.invoke.Invokestatic;
+import jvm.java.Instructions.invoke.Return;
 import jvm.java.Instructions.loads.*;
 import jvm.java.Instructions.maths.Iadd;
 import jvm.java.Instructions.stores.*;
@@ -67,6 +70,15 @@ public class InstructionHolder {
         instructionMap.put(inst.BC(), inst);
 
 
+        inst = new Invokestatic();
+        instructionMap.put(inst.BC(), inst);
+
+
+        inst = new IReturn();
+        instructionMap.put(inst.BC(), inst);
+
+        inst = new Return();
+        instructionMap.put(inst.BC(), inst);
 
     }
 

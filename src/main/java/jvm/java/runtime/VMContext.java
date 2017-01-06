@@ -1,6 +1,7 @@
 package jvm.java.runtime;
 
 import jvm.java.loader.JClassLoader;
+import jvm.java.prims.JNIEnv;
 
 /**
  * Created by admin on 2017/1/5.
@@ -35,4 +36,13 @@ public class VMContext {
     RefHolder refHolder;
     JClassLoader jClassLoader;
 
+    JNIEnv jniEnv ;
+
+    public JNIEnv getJniEnv() {
+        return jniEnv;
+    }
+
+    public void setJniEnv(JNIEnv jniEnv) {
+        this.jniEnv = jniEnv;
+    }
 }

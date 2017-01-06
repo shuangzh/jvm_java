@@ -6,8 +6,14 @@ import jvm.java.classfile.ClassFileParser;
 import jvm.java.classfile.MethodInfo;
 import jvm.java.classfile.constantpool.ConstantInfo;
 import jvm.java.classfile.constantpool.ConstantUtf8Info;
+import jvm.java.loader.JClass;
+import jvm.java.loader.JClassLoader;
+import jvm.java.loader.JMethod;
+import jvm.java.prims.JNIEnv;
+import jvm.java.runtime.RefHolder;
 import jvm.java.runtime.StackFrame;
 import jvm.java.runtime.ThreadStack;
+import jvm.java.runtime.VMContext;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -68,6 +74,32 @@ public class ClassReaderTest {
         System.out.println("OK");
     }
 
+//    @Test
+//    public void testClassLoad() throws IOException {
+//        DirClassReader dirClassReader = new DirClassReader(System.getProperty("user.dir")+"\\target\\test-classes");
+//        byte[] bytes=dirClassReader.getClassBytes("jvm.java.SimpleTest");
+//        ClassFileParser classFileParser = new ClassFileParser();
+//        ClassFile classFile = classFileParser.parse(bytes);
+//        ClassObjectLoader classObjectLoader = new ClassObjectLoader();
+//        ClassObject classObject= classObjectLoader.defineClassObject(classFile);
+//
+//        ThreadStack threadStack = new ThreadStack();
+//        Method method=getMethod("main", classObject);
+//        StackFrame stackFrame=new StackFrame(threadStack, method);
+//
+//        threadStack.pushFrame(stackFrame);
+//        threadStack.loop(100);
+//    }
+//
+//    public static Method getMethod(String name, ClassObject classObject) {
+//        for(Method method: classObject.getMethods())
+//        {
+//            if(method.getName().equals(name))
+//                return method;
+//        }
+//        return  null;
+//    }
+
     public static  MethodInfo getMainFunc(ClassFile classFile) {
         MethodInfo[] methodInfos = classFile.getMethods();
         for(MethodInfo methodInfo: methodInfos) {
@@ -122,8 +154,26 @@ public class ClassReaderTest {
         DataInputStream dataInputStream = new DataInputStream(byteArrayInputStream);
 
         long lout = dataInputStream.readLong();
-
-
     }
 
+    @Test
+    public void  testLoad() throws IOException {
+        VMContext vmContext = new VMContext();
+        JClassLoader jClassLoader = new JClassLoader(System.getProperty("user.dir")+"\\target\\test-classes");
+        ThreadStack threadStack= new ThreadStack();
+        vmContext.setjClassLoader(jClassLoader);
+        vmContext.setThreadStack(threadStack);
+        vmContext.setRefHolder(new RefHolder());
+        JNIEnv jniEnv=new JNIEnv();
+        jniEnv.setVmContext(vmContext);
+        vmContext.setJniEnv(jniEnv);
+
+        JClass jClass = jClassLoader.FindClass("jvm/java/SimpleTest");
+        JMethod jMethod= jClass.FindMethod("main","([Ljava/lang/String;)V");
+        StackFrame frame = new StackFrame(threadStack, jMethod);
+        frame.setVmContext(vmContext);
+
+        threadStack.pushFrame(frame);
+        threadStack.start();
+    }
 }

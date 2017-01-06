@@ -112,4 +112,13 @@ public class JClass {
         this.loader = loader;
     }
 
+
+    public JMethod FindMethod(String name, String descriptor) {
+        for (int i=0; i< this.methods.length; i++) {
+            if (methods[i].getName().equals(name) && methods[i].getDescriptor().equals(descriptor))
+                return  methods[i];
+        }
+        return null;
+    }
+
 }

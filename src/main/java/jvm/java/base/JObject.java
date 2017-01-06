@@ -7,10 +7,21 @@ import jvm.java.loader.JType;
  * Created by admin on 2017/1/3.
  */
 public class JObject {
-    JType jType;
+
+    String typ ;
+
+    public String getTyp() {
+        return typ;
+    }
+
+    public void setTyp(String typ) {
+        this.typ = typ;
+    }
+
     String classname;
     JClass jClass;
     int intValue;
+
     float floatValue;
     double doubleValue;
     long  longValue;
@@ -21,14 +32,8 @@ public class JObject {
 
     public void setLongValue(long longValue) {
         this.longValue = longValue;
-    }
-
-    public JType getjType() {
-        return jType;
-    }
-
-    public void setjType(JType jType) {
-        this.jType = jType;
+        this.typ = Const.TYP_J;
+        this.classname="J";
     }
 
     public String getClassname() {
@@ -45,6 +50,7 @@ public class JObject {
 
     public void setIntValue(int intValue) {
         this.intValue = intValue;
+        this.typ  = Const.TYP_I;
     }
 
     public JClass getjClass() {
@@ -57,10 +63,12 @@ public class JObject {
 
     public float getFloatValue() {
         return floatValue;
+
     }
 
     public void setFloatValue(float floatValue) {
         this.floatValue = floatValue;
+        this.typ = Const.TYP_F;
     }
 
     public double getDoubleValue() {
@@ -69,6 +77,7 @@ public class JObject {
 
     public void setDoubleValue(double doubleValue) {
         this.doubleValue = doubleValue;
+        this.typ = Const.TYP_D;
     }
 
     public int getRefValue() {
@@ -77,6 +86,52 @@ public class JObject {
 
     public void setRefValue(int refValue) {
         this.intValue = refValue;
+        this.typ = Const.TYP_L;
+    }
+
+
+    public void setArrayRefValue(int refValue){
+        this.intValue = refValue;
+        this.typ = Const.TYP_AR;
+    }
+
+
+    public int getArrayRefValue() {
+        return this.intValue;
+    }
+
+    public void setByteValue(int value) {
+        this.intValue = value;
+        this.typ = Const.TYP_B;
+    }
+
+    public int getByteValue() {
+        return this.intValue;
+    }
+
+    public void setShortValue(int value){
+        this.intValue = value;
+        this.typ = Const.TYP_S;
+    }
+
+    public int getShortValue()
+    {
+        return intValue;
+    }
+
+    public void setCharValue(int value) {
+        this.intValue = value;
+        this.typ = Const.TYP_C;
+    }
+
+    public void setVoid() {
+        this.intValue=0;
+        this.typ = Const.TYP_V;
+    }
+
+    public void setBoolValue(int value) {
+        this.intValue = value;
+        this.typ = Const.TYP_Z;
     }
 
     public SlotArray[] getSlotArray() {

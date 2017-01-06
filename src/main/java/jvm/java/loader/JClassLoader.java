@@ -1,5 +1,6 @@
 package jvm.java.loader;
 
+import jvm.java.base.Const;
 import jvm.java.base.SlotArray;
 import jvm.java.classfile.ClassFile;
 import jvm.java.classfile.ClassFileParser;
@@ -23,53 +24,45 @@ public class JClassLoader {
 
     Map<String, JClass> jClassMap = new HashMap<String, JClass>();
 
-    public ClassFile obtainClassFile(String classname) throws IOException {
+    public JClassLoader(String classpath) {
+        this.classReader.setLocation(classpath);
+    }
+
+    private ClassFile obtainClassFile(String classname) throws IOException {
         return classFileParser.parse(classReader.getClassBytes(classname));
     }
 
-    public synchronized void loadJClass(String classname) throws IOException {
-        JClass jClass = this.exportJClass(obtainClassFile(classname));
+    protected synchronized void loadJClass(String classname) throws IOException {
+        JClass jClass = this.importJClass(obtainClassFile(classname));
         // 计算slotCount
         this.calSlotCount(jClass);
-
         // 运行类初始化方法
-
-
+        jClassMap.put(classname, jClass);
     }
 
-    public void calSlotCount(JClass jClass) {
+    protected void calSlotCount(JClass jClass) throws IOException {
         int instCount = 0;
         int staticCount = 0;
-        if (jClass.getSuperName() != "java/lang/Object") {
+        if (!jClass.getSuperName().equals("java/lang/Object")) {
             JClass sp = this.FindClass(jClass.getSuperName());
             instCount = sp.getInstanceSlotCount();
         }
-
-        for (JField jField : jClass.getFields()) {
-            if (jField.isStatic()) {
-                jField.setSlotId(staticCount);
-                JType jType = jField.getJType();
-                switch (jType) {
-                    case J:
-                        ;
-                    case D:
-                        staticCount = staticCount + 2;
-                        break;
-                    default:
-                        staticCount = staticCount+1;
-                        break;
-                }
-            } else {
-                jField.setSlotId(instCount);
-                JType jType = jField.getJType();
-                switch (jType) {
-                    case J:
-                        ;
-                    case D:
-                        instCount = instCount + 2;
-                        break;
-                    default:
-                        instCount = instCount + 1;
+        if (jClass.getFields() != null && jClass.getFields().length > 0) {
+            for (JField jField : jClass.getFields()) {
+                if (jField.isStatic()) {
+                    jField.setSlotId(staticCount);
+                    String type = jField.getType();
+                    if (type.equals(Const.TYP_J) || type.equals(Const.TYP_D))
+                        staticCount += 2;
+                    else
+                        staticCount += 1;
+                } else {
+                    jField.setSlotId(instCount);
+                    String type = jField.getType();
+                    if (type.equals(Const.TYP_J) || type.equals(Const.TYP_D))
+                        instCount += 2;
+                    else
+                        instCount += 1;
                 }
             }
         }
@@ -78,14 +71,17 @@ public class JClassLoader {
         jClass.setStaticSlots(new SlotArray(staticCount));
     }
 
-    public JClass FindClass(String classname) {
-        return null;
+    public JClass FindClass(String classname) throws IOException {
+        JClass jClass = jClassMap.get(classname);
+        if (jClass == null) {
+            loadJClass(classname);
+            return jClassMap.get(classname);
+        } else {
+            return jClass;
+        }
     }
 
-    ;
-
-
-    public JClass exportJClass(ClassFile classFile) {
+    private JClass importJClass(ClassFile classFile) {
         JClass classObject = new JClass();
         classObject.setAccess_flag(classFile.getAccess_flags());
         classObject.setName(classFile.getThisClassName());
@@ -93,7 +89,7 @@ public class JClassLoader {
 
         // 设置fieldInfo
         FieldInfo[] fieldInfos = classFile.getFields();
-        if (fieldInfos.length > 0) {
+        if (fieldInfos != null && fieldInfos.length > 0) {
             JField[] fields = new JField[fieldInfos.length];
             for (int i = 0; i < fieldInfos.length; i++) {
                 fields[i] = new JField(classObject, classFile, fieldInfos[i]);

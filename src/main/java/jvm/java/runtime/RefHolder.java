@@ -20,7 +20,7 @@ public class RefHolder {
             Object  o = refMap.get(i);
             if (o !=null)
                 continue;
-            obj.RefId(i);
+           // obj.RefId(i);
             refMap.put(i, obj);
             break;
         }

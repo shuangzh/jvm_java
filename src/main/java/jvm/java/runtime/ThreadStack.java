@@ -21,6 +21,9 @@ public class ThreadStack {
         return this.stack.peek();
     }
 
+    public boolean isEmpty() {
+        return  stack.isEmpty();
+    }
 
     public void loop(int num) {
         if (num < 0) {
@@ -34,6 +37,11 @@ public class ThreadStack {
                 frame.execute();
             }
         }
+    }
+
+    public void start() {
+        StackFrame frame = currentFrame();
+        frame.loop();
     }
 
 }

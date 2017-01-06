@@ -1,7 +1,9 @@
 package jvm.java.loader;
 
+import jvm.java.base.Const;
 import jvm.java.classfile.ClassFile;
 import jvm.java.classfile.MethodInfo;
+import jvm.java.utils.DescriptorUtil;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -33,8 +35,16 @@ public class JMethod {
         this.methodInfo = methodInfo;
     }
 
-    public JMethod()
-    {}
+    public JMethod() {
+    }
+
+    public static void main(String[] args) {
+
+        JMethod jMethod = new JMethod();
+        jMethod.descriptor = "(IILjava/lang/String;Ljava/opt;I[[IFDV)V";
+        String[] ds = jMethod.splitDescriptor();
+        System.out.println("hello");
+    }
 
     public int getAccess_flag() {
         return access_flag;
@@ -65,74 +75,24 @@ public class JMethod {
     }
 
     public String[] splitDescriptor() {
-        StringBuilder sb = new StringBuilder();
-        char c;
-        boolean isL = false;
-        for (int i = 0; i < descriptor.length(); i++) {
-            c = descriptor.charAt(i);
-            JType jt = JType.transform(c);
-            switch (jt) {
-                case B:
-                    ;
-                case C:
-                    ;
-                case F:
-                    ;
-                case D:
-                    ;
-                case I:
-                    ;
-                case J:
-                    ;
-                case S:
-                    ;
-                case V:
-                    ;
-                case Z:
-                    if (isL == false) {
-                        sb.append(c);
-                        sb.append(",");
-                        break;
-                    }
-                case L:
-                    isL = true;
-                default:
-                    switch (c) {
-                        case '(':
-                            break;
-                        case ')':
-                            break;
-                        case ';':
-                            isL = false;
-                            sb.append(",");
-                            break;
-                        default:
-                            sb.append(c);
-                    }
-            }
-
-        }
-        String s= sb.substring(0,sb.length());
-        return s.split(",");
+        return DescriptorUtil.split(this.descriptor);
     }
 
-    public JType[] splitedDescritorJType()
-    {
-        String[] dess= this.splitDescriptor();
-        JType[] jTypes=new JType[dess.length];
-        for(int i=0; i<dess.length; i++) {
-            jTypes[i] = JType.transform(dess[i].charAt(0));
-        }
-        return  jTypes;
+    public String[] getArgsDesciptors() {
+        String str = null;
+        if (!this.isStatic()) {
+            str = "L" + this.classObject.getName() + ";" + this.descriptor;
+        } else
+            str = this.descriptor;
+        str = str.substring(0, str.indexOf(")"));
+        return DescriptorUtil.split(str);
     }
 
-    public static void main(String[] args) {
 
-        JMethod jMethod=new JMethod();
-        jMethod.descriptor="(IILjava/lang/String;Ljava/opt;I[[IFDV)V";
-        String[] ds = jMethod.splitDescriptor();
-        JType[] jTypes = jMethod.splitedDescritorJType();
-        System.out.println("hello");
-
+    public boolean isStatic() {
+        if ((this.access_flag & Const.ACC_STATIC) != 0)
+            return true;
+        else
+            return false;
     }
 }
