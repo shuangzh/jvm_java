@@ -18,6 +18,16 @@ public class JObject {
         this.typ = typ;
     }
 
+    public String getValueInfo() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("typ:").append(typ).append(",");
+        sb.append("i:").append(intValue).append(",");
+        sb.append("f:").append(floatValue).append(",");
+        sb.append("l:").append(longValue).append(",");
+        sb.append("d:").append(doubleValue);
+        return sb.toString();
+    };
+
     String classname;
     JClass jClass;
     int intValue;

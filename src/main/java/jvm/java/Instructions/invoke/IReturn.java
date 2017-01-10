@@ -1,6 +1,7 @@
 package jvm.java.Instructions.invoke;
 
 import jvm.java.Instructions.Instruction;
+import jvm.java.base.JObject;
 import jvm.java.runtime.CodeReader;
 import jvm.java.runtime.StackFrame;
 import jvm.java.runtime.ThreadStack;
@@ -26,6 +27,9 @@ public class IReturn extends Instruction {
         int retInt= stackFrame.getOperandStack().popInt();
         stackFrame.setState(StackFrame.STATE_RETURN);
 
+        JObject retValue=new JObject();
+        retValue.setIntValue(retInt);
+        stackFrame.setReturnValue(retValue);
         ThreadStack threadStack = stackFrame.getThreadStack();
         threadStack.popFrame();
         if(!threadStack.isEmpty()) {

@@ -45,7 +45,13 @@ public class Invokestatic extends Instruction{
             e.printStackTrace();
         }
         this.buidNewStackFrame();
+
+        System.out.println("StaticInvoke Start: "+newStackFrame.getFrameName() );
         newStackFrame.loop();
+        postInvoke();
+
+        System.out.println("StaticInvoke End: "+newStackFrame.getFrameName());
+
     }
 
     protected void findMethod() throws IOException {
@@ -63,6 +69,13 @@ public class Invokestatic extends Instruction{
         JObject[] args=currentStackFrame.popArgsForMethod(newMethod);
         this.newStackFrame.setLocalVarsForMethod(newMethod, args);
         currentStackFrame.getThreadStack().pushFrame(newStackFrame);
+    }
+
+    protected void postInvoke() {
+        JObject ret=newStackFrame.getReturnValue();
+        if(ret!=null) {
+            System.out.println(newStackFrame.getFrameName() + " return value :" + ret.getValueInfo());
+        }
     }
 
 }

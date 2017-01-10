@@ -11,7 +11,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class RefHolder {
     AtomicInteger atomicInteger = new AtomicInteger();
-    Map<Integer, Object> refMap=new HashMap<Integer,Object>();
+    Map<Integer, JObject> refMap=new HashMap<Integer,JObject>();
 
     public int saveNewObject(JObject obj) {
         int i= 0;
@@ -21,9 +21,14 @@ public class RefHolder {
             if (o !=null)
                 continue;
            // obj.RefId(i);
+            obj.setRefValue(i);
             refMap.put(i, obj);
             break;
         }
         return i;
+    }
+
+    public JObject fetchObject(int refvalue) {
+        return refMap.get(refvalue);
     }
 }

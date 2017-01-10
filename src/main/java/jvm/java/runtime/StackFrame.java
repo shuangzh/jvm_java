@@ -7,6 +7,7 @@ import jvm.java.base.Const;
 import jvm.java.base.JObject;
 import jvm.java.classfile.MethodInfo;
 import jvm.java.classfile.attribute.CodeAttribute;
+import jvm.java.loader.JClass;
 import jvm.java.loader.JMethod;
 
 /**
@@ -24,12 +25,39 @@ public class StackFrame {
     OperandStack operandStack;
     CodeAttribute codeAttribute;
     CodeReader codeReader;
-    VMContext vmContext;
     int nextPC;
     int state;
     MethodInfo methodInfo;
     ThreadStack threadStack;
     JMethod method;
+
+    JClass jclass;
+
+    public JClass getJclass() {
+        return jclass;
+    }
+
+    public void setJclass(JClass jclass) {
+        this.jclass = jclass;
+    }
+
+    public StackFrame(JClass jclass) {
+        this.jclass = jclass;
+    }
+
+    public String getFrameName() {
+        return  jclass.getName() + "->" + method.getName();
+    }
+
+    public JObject getReturnValue() {
+        return returnValue;
+    }
+
+    public void setReturnValue(JObject returnValue) {
+        this.returnValue = returnValue;
+    }
+
+    JObject returnValue;
 
     public StackFrame(ThreadStack threadStack, MethodInfo methodInfo) {
         this.threadStack = threadStack;
@@ -49,15 +77,16 @@ public class StackFrame {
         localVarsTable = new LocalVarsTable(method.getMaxLocals());
         operandStack = new OperandStack(method.getMaxStack());
         codeReader = new CodeReader(method.getCode());
+        jclass = method.getClassObject();
     }
 
-    public VMContext getVmContext() {
-        return vmContext;
-    }
-
-    public void setVmContext(VMContext vmContext) {
-        this.vmContext = vmContext;
-    }
+//    public VMContext getVmContext() {
+//        return vmContext;
+//    }
+//
+//    public void setVmContext(VMContext vmContext) {
+//        this.vmContext = vmContext;
+//    }
 
     public int getState() {
         return state;
