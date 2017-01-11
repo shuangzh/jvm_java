@@ -43,7 +43,7 @@ public class JClassLoader {
     protected void calSlotCount(JClass jClass) throws IOException {
         int instCount = 0;
         int staticCount = 0;
-        if (!jClass.getSuperName().equals("java/lang/Object")) {
+        if ((jClass.getSuperName()!=null) && (!jClass.getSuperName().equals("java/lang/Object"))) {
             JClass sp = this.FindClass(jClass.getSuperName());
             instCount = sp.getInstanceSlotCount();
         }

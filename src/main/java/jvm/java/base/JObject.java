@@ -144,13 +144,14 @@ public class JObject {
         this.typ = Const.TYP_Z;
     }
 
-    public SlotArray[] getSlotArray() {
+    public SlotArray getSlotArray() {
         return slotArray;
     }
 
-    public void setSlotArray(SlotArray[] slotArray) {
+    public void setSlotArray(SlotArray slotArray) {
         this.slotArray = slotArray;
     }
 
-    SlotArray slotArray[];
+    SlotArray slotArray;
+
 }

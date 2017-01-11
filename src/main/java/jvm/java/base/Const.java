@@ -16,6 +16,7 @@ public class Const {
     public final static int ACC_VOLATILE   = 0x0040;
     public final static int ACC_TRANSIENT  = 0x0080;
     public final static int ACC_SYNTHETIC  = 0x1000;
+    public final static int ACC_NATIVE     = 0x0100;
 
     public final static String TYP_B = "B";
     public final static String TYP_C = "C";

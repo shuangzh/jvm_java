@@ -29,9 +29,11 @@ public class JMethod {
         this.name = classFile.getConstantUtf8InfoValue(methodInfo.getName_index());
         this.descriptor = classFile.getConstantUtf8InfoValue(methodInfo.getDescriptor_index());
         this.classObject = classObject;
+        if((this.access_flag & Const.ACC_NATIVE) == 0) {      // 非native方法，设置code属性
         this.code = methodInfo.getCodeAttribute().getCode();
         this.maxLocals = methodInfo.getCodeAttribute().getMax_locals();
         this.maxStack = methodInfo.getCodeAttribute().getMax_stack();
+        }
         this.methodInfo = methodInfo;
     }
 

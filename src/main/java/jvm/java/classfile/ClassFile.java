@@ -164,6 +164,8 @@ public class ClassFile {
     }
 
     public String getSuperClassName(){
+        if(super_class == 0)
+            return  null;           // index 为0时，无父类
         ConstantClassInfo constantClassInfo= (ConstantClassInfo) constantInfoPool[super_class];
         return constantClassInfo.getClassName();
     }

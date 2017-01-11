@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Created by admin on 2017/1/3.
  */
 public class RefHolder {
-    AtomicInteger atomicInteger = new AtomicInteger();
+    AtomicInteger atomicInteger = new AtomicInteger(100);
     Map<Integer, JObject> refMap=new HashMap<Integer,JObject>();
 
     public int saveNewObject(JObject obj) {

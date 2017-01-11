@@ -171,7 +171,7 @@ public class ClassReaderTest {
         JClass jClass = jClassLoader.FindClass("jvm/java/SimpleTest");
         JMethod jMethod= jClass.FindMethod("main","([Ljava/lang/String;)V");
         StackFrame frame = new StackFrame(threadStack, jMethod);
-        frame.setVmContext(vmContext);
+//        frame.setVmContext(vmContext);
 
         threadStack.pushFrame(frame);
         threadStack.start();

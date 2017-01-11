@@ -194,7 +194,7 @@ public class StackFrame {
     public void setLocalVarsForMethod(JMethod jMethod, JObject[] jObjects) {
         String[] argsDesc = method.getArgsDesciptors();
         int index = 0;
-        if (argsDesc != null && argsDesc.length > 1) {
+        if (argsDesc != null && argsDesc.length >= 1) {
             for (int i = 0; i < argsDesc.length; i++) {
                 String desc = argsDesc[i].substring(0, 1);
                 if (desc.equals(Const.TYP_D)) {

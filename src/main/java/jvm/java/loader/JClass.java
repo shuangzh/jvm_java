@@ -121,4 +121,12 @@ public class JClass {
         return null;
     }
 
+    public JField FindField(String name, String descriptor) {
+        for(int i=0; i < this.fields.length; i++) {
+            if(fields[i].getName().equals(name) && fields[i].getDescriptor().equals(descriptor))
+                return fields[i];
+        }
+        return  null;
+    }
+
 }
