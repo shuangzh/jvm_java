@@ -10,6 +10,16 @@ public class JObject {
 
     String typ ;
 
+    String classname;
+    JClass jClass;
+
+    int intValue;
+    float floatValue;
+    double doubleValue;
+    long  longValue;
+
+    protected SlotArray slotArray;
+
     public String getTyp() {
         return typ;
     }
@@ -28,13 +38,7 @@ public class JObject {
         return sb.toString();
     };
 
-    String classname;
-    JClass jClass;
-    int intValue;
 
-    float floatValue;
-    double doubleValue;
-    long  longValue;
 
     public long getLongValue() {
         return longValue;
@@ -152,6 +156,6 @@ public class JObject {
         this.slotArray = slotArray;
     }
 
-    SlotArray slotArray;
+
 
 }

@@ -10,6 +10,13 @@ public class SMain {
 
 
         int r = k +10 +j;
+        int[][] arr=null;
+        r+=r;
+        arr=new int[10][8];
+
+        int[] karr=null;
+        karr=new int[7];
+
         return  r;
     }
 

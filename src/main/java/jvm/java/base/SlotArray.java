@@ -5,9 +5,15 @@ package jvm.java.base;
  */
 public class SlotArray {
     ByteArray byteArray = null;
+    int len =0;
 
     public  SlotArray(int maxSize) {
+        this.len=0;
         byteArray=new ByteArray(maxSize * 4);
+    }
+
+    public int getLength() {
+        return len;
     }
 
     public int getInt(int index) {

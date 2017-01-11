@@ -15,5 +15,8 @@ public class SimpleTest extends Object {
         int i = 100;
         int r = i + 8;
         r= r + add10(8, 16);
+
+        SimpleObject obj = new SimpleObject();
+
     }
 }

@@ -18,7 +18,7 @@ public class ObjectHeap {
         jObject.setClassname(jClass.getName());
         jObject.setjClass(jClass);
         jObject.setTyp(Const.TYP_L);
-        jObject.setSlotArray( new SlotArray[jClass.getInstanceSlotCount()]);
+        jObject.setSlotArray( new SlotArray(jClass.getInstanceSlotCount()));
         refHolder.saveNewObject(jObject);
         return  jObject;
     }
