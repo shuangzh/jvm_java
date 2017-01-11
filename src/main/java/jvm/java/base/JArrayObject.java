@@ -62,11 +62,10 @@ public class JArrayObject extends JObject {
             SlotArray slotArray = new SlotArray(2 * length);
             jArrayObject.setSlotArray(slotArray);
         } else {
-            SlotArray slotArray = new SlotArray(2 * length);
+            SlotArray slotArray = new SlotArray( length);
             jArrayObject.setSlotArray(slotArray);
         }
-
-        return null;
+        return jArrayObject;
     }
 
 }
