@@ -95,7 +95,7 @@ public class ByteArray {
         return  ( b1<< 8 ) | b2;
     }
 
-    public void setShort(int index, short s) {
+    public void setShort(int index, int s) {
         buf[index] = (byte) ((s >>> 8) & 0xFF);
         buf[index + 1] = (byte) (s & 0xFF);
     }
