@@ -33,6 +33,16 @@ public class JClassLoader {
     }
 
     protected synchronized void loadJClass(String classname) throws IOException {
+
+        if(classname.startsWith("[")) {
+            JClass arrJClass = new JClass();
+            arrJClass.setAccess_flag(Const.ACC_PUBLIC);
+            arrJClass.setLoader(this);
+            arrJClass.setName(classname);
+            arrJClass.setSuperName("java/lang/Object");
+            jClassMap.put(classname, arrJClass);
+        }
+
         JClass jClass = this.importJClass(obtainClassFile(classname));
         // 计算slotCount
         this.calSlotCount(jClass);

@@ -9,10 +9,6 @@ import jvm.java.runtime.StackFrame;
 public abstract class Instruction {
 
 
-    public Instruction(String name) {
-        this.name = name;
-    }
-
     public Instruction()
     {
 

@@ -1,5 +1,6 @@
 package jvm.java.runtime;
 
+import jvm.java.base.JArrayObject;
 import jvm.java.base.JObject;
 
 import java.util.HashMap;
@@ -22,6 +23,21 @@ public class RefHolder {
                 continue;
            // obj.RefId(i);
             obj.setRefValue(i);
+            refMap.put(i, obj);
+            break;
+        }
+        return i;
+    }
+
+    public  int saveNewArrayObject(JArrayObject obj) {
+        int i= 0;
+        for (;;) {
+            i=atomicInteger.getAndIncrement();
+            Object  o = refMap.get(i);
+            if (o !=null)
+                continue;
+            // obj.RefId(i);
+            obj.setArrayRefValue(i);
             refMap.put(i, obj);
             break;
         }

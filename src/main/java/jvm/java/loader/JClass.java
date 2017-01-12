@@ -24,6 +24,13 @@ public class JClass {
     int staticSlotCount;
     SlotArray  staticSlots;
 
+    public  boolean isArray() {
+        if (name.startsWith("["))
+            return  true;
+        else
+            return false;
+    }
+
     public int getInstanceSlotCount() {
         return instanceSlotCount;
     }
