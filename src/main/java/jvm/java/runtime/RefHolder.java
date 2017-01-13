@@ -1,7 +1,7 @@
 package jvm.java.runtime;
 
 import jvm.java.base.JArrayObject;
-import jvm.java.base.JObject;
+import jvm.java.base.Basic;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,9 +12,9 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class RefHolder {
     AtomicInteger atomicInteger = new AtomicInteger(100);
-    Map<Integer, JObject> refMap=new HashMap<Integer,JObject>();
+    Map<Integer, Basic> refMap=new HashMap<Integer,Basic>();
 
-    public int saveNewObject(JObject obj) {
+    public int saveNewObject(Basic obj) {
         int i= 0;
         for (;;) {
             i=atomicInteger.getAndIncrement();
@@ -44,7 +44,7 @@ public class RefHolder {
         return i;
     }
 
-    public JObject fetchObject(int refvalue) {
+    public Basic fetchObject(int refvalue) {
         return refMap.get(refvalue);
     }
 }

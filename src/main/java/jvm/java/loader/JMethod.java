@@ -5,11 +5,6 @@ import jvm.java.classfile.ClassFile;
 import jvm.java.classfile.MethodInfo;
 import jvm.java.utils.DescriptorUtil;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.StringReader;
-import java.nio.CharBuffer;
-
 /**
  * Created by admin on 2017/1/3.
  */
@@ -18,13 +13,13 @@ public class JMethod {
     int access_flag;
     String name;
     String descriptor;
-    JClass classObject;
+    Klass classObject;
     MethodInfo methodInfo;
     byte[] code;
     int maxStack;
     int maxLocals;
 
-    public JMethod(JClass classObject, ClassFile classFile, MethodInfo methodInfo) {
+    public JMethod(Klass classObject, ClassFile classFile, MethodInfo methodInfo) {
         this.access_flag = methodInfo.getAccess_flags();
         this.name = classFile.getConstantUtf8InfoValue(methodInfo.getName_index());
         this.descriptor = classFile.getConstantUtf8InfoValue(methodInfo.getDescriptor_index());
@@ -60,7 +55,7 @@ public class JMethod {
         return descriptor;
     }
 
-    public JClass getClassObject() {
+    public Klass getClassObject() {
         return classObject;
     }
 

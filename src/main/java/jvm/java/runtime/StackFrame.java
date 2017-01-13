@@ -1,13 +1,12 @@
 package jvm.java.runtime;
 
-import com.sun.org.apache.bcel.internal.generic.RETURN;
 import jvm.java.Instructions.Instruction;
 import jvm.java.Instructions.InstructionHolder;
 import jvm.java.base.Const;
-import jvm.java.base.JObject;
+import jvm.java.base.Basic;
 import jvm.java.classfile.MethodInfo;
 import jvm.java.classfile.attribute.CodeAttribute;
-import jvm.java.loader.JClass;
+import jvm.java.loader.Klass;
 import jvm.java.loader.JMethod;
 
 /**
@@ -31,17 +30,17 @@ public class StackFrame {
     ThreadStack threadStack;
     JMethod method;
 
-    JClass jclass;
+    Klass jclass;
 
-    public JClass getJclass() {
+    public Klass getJclass() {
         return jclass;
     }
 
-    public void setJclass(JClass jclass) {
+    public void setJclass(Klass jclass) {
         this.jclass = jclass;
     }
 
-    public StackFrame(JClass jclass) {
+    public StackFrame(Klass jclass) {
         this.jclass = jclass;
     }
 
@@ -49,15 +48,15 @@ public class StackFrame {
         return  jclass.getName() + "->" + method.getName();
     }
 
-    public JObject getReturnValue() {
+    public Basic getReturnValue() {
         return returnValue;
     }
 
-    public void setReturnValue(JObject returnValue) {
+    public void setReturnValue(Basic returnValue) {
         this.returnValue = returnValue;
     }
 
-    JObject returnValue;
+    Basic returnValue;
 
     public StackFrame(ThreadStack threadStack, MethodInfo methodInfo) {
         this.threadStack = threadStack;
@@ -161,18 +160,18 @@ public class StackFrame {
     }
 
 
-    public JObject[] popArgsForMethod(JMethod method) {
+    public Basic[] popArgsForMethod(JMethod method) {
         String[] argsDesc = method.getArgsDesciptors();
-        JObject[] args = null;
+        Basic[] args = null;
 
         if(argsDesc !=null && argsDesc.length > 0)
-            args = new JObject[argsDesc.length];
+            args = new Basic[argsDesc.length];
         else
             return  null;
 
         for (int i = args.length - 1; i >= 0; i--) {
             String desc = argsDesc[i].substring(0, 1);
-            JObject obj = new JObject();
+            Basic obj = new Basic();
             if (desc.equals(Const.TYP_D)) {
                 double d = this.operandStack.popDouble();
                 obj.setDoubleValue(d);
@@ -191,7 +190,7 @@ public class StackFrame {
         return args;
     }
 
-    public void setLocalVarsForMethod(JMethod jMethod, JObject[] jObjects) {
+    public void setLocalVarsForMethod(JMethod jMethod, Basic[] jObjects) {
         String[] argsDesc = method.getArgsDesciptors();
         int index = 0;
         if (argsDesc != null && argsDesc.length >= 1) {

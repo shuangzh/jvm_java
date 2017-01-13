@@ -1,6 +1,6 @@
 package jvm.java;
 
-import jvm.java.loader.JClass;
+import jvm.java.loader.Klass;
 import jvm.java.loader.JClassLoader;
 import jvm.java.loader.JMethod;
 import jvm.java.runtime.StackFrame;
@@ -20,7 +20,7 @@ public class SimTest {
         JClassLoader jClassLoader = new JClassLoader(System.getProperty("user.dir")+"\\target\\test-classes"+","+ System.getProperty("user.dir")+"\\libs\\rt");
         ThreadStack threadStack= new ThreadStack();
 
-        JClass jClass = jClassLoader.FindClass("jvm/java/SMain");
+        Klass jClass = jClassLoader.FindClass("jvm/java/SMain");
         JMethod jMethod= jClass.FindMethod("main","([Ljava/lang/String;)V");
         StackFrame frame = new StackFrame(threadStack, jMethod);
 //        frame.setVmContext(vmContext);

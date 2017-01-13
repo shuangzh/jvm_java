@@ -1,12 +1,10 @@
 package jvm.java.io;
 
-import jvm.java.base.ByteArray;
 import jvm.java.classfile.ClassFile;
 import jvm.java.classfile.ClassFileParser;
 import jvm.java.classfile.MethodInfo;
-import jvm.java.classfile.constantpool.ConstantInfo;
 import jvm.java.classfile.constantpool.ConstantUtf8Info;
-import jvm.java.loader.JClass;
+import jvm.java.loader.Klass;
 import jvm.java.loader.JClassLoader;
 import jvm.java.loader.JMethod;
 import jvm.java.prims.JNIEnv;
@@ -168,7 +166,7 @@ public class ClassReaderTest {
         jniEnv.setVmContext(vmContext);
         vmContext.setJniEnv(jniEnv);
 
-        JClass jClass = jClassLoader.FindClass("jvm/java/SimpleTest");
+        Klass jClass = jClassLoader.FindClass("jvm/java/SimpleTest");
         JMethod jMethod= jClass.FindMethod("main","([Ljava/lang/String;)V");
         StackFrame frame = new StackFrame(threadStack, jMethod);
 //        frame.setVmContext(vmContext);

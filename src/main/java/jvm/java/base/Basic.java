@@ -1,24 +1,22 @@
 package jvm.java.base;
 
-import jvm.java.loader.JClass;
-import jvm.java.loader.JType;
-
 /**
  * Created by admin on 2017/1/3.
  */
-public class JObject {
+public class Basic {
 
     String typ ;
 
-    String classname;
-    JClass jClass;
+//    String classname;
+//    Klass jClass;
 
     int intValue;
+    char charValue;
     float floatValue;
     double doubleValue;
     long  longValue;
 
-    protected SlotArray slotArray;
+//    protected SlotArray slotArray;
 
     public String getTyp() {
         return typ;
@@ -34,11 +32,10 @@ public class JObject {
         sb.append("i:").append(intValue).append(",");
         sb.append("f:").append(floatValue).append(",");
         sb.append("l:").append(longValue).append(",");
-        sb.append("d:").append(doubleValue);
+        sb.append("d:").append(doubleValue).append(",");
+        sb.append("c:").append(charValue);
         return sb.toString();
     };
-
-
 
     public long getLongValue() {
         return longValue;
@@ -47,16 +44,16 @@ public class JObject {
     public void setLongValue(long longValue) {
         this.longValue = longValue;
         this.typ = Const.TYP_J;
-        this.classname="J";
+//        this.classname="J";
     }
 
-    public String getClassname() {
-        return classname;
-    }
-
-    public void setClassname(String classname) {
-        this.classname = classname;
-    }
+//    public String getClassname() {
+//        return classname;
+//    }
+//
+//    public void setClassname(String classname) {
+//        this.classname = classname;
+//    }
 
     public int getIntValue() {
         return intValue;
@@ -67,13 +64,13 @@ public class JObject {
         this.typ  = Const.TYP_I;
     }
 
-    public JClass getjClass() {
-        return jClass;
-    }
-
-    public void setjClass(JClass jClass) {
-        this.jClass = jClass;
-    }
+//    public Klass getjClass() {
+//        return jClass;
+//    }
+//
+//    public void setjClass(Klass jClass) {
+//        this.jClass = jClass;
+//    }
 
     public float getFloatValue() {
         return floatValue;
@@ -133,9 +130,13 @@ public class JObject {
         return intValue;
     }
 
-    public void setCharValue(int value) {
-        this.intValue = value;
+    public void setCharValue(char value) {
+        this.charValue = value;
         this.typ = Const.TYP_C;
+    }
+
+    public char getCharValue() {
+        return  this.charValue;
     }
 
     public void setVoid() {
@@ -148,13 +149,20 @@ public class JObject {
         this.typ = Const.TYP_Z;
     }
 
-    public SlotArray getSlotArray() {
-        return slotArray;
+    public boolean isReference() {
+        if(typ.equals(Const.TYP_AR) || typ.equals(Const.TYP_L))
+            return true;
+        else
+            return false;
     }
 
-    public void setSlotArray(SlotArray slotArray) {
-        this.slotArray = slotArray;
-    }
+//    public SlotArray getSlotArray() {
+//        return slotArray;
+//    }
+//
+//    public void setSlotArray(SlotArray slotArray) {
+//        this.slotArray = slotArray;
+//    }
 
 
 

@@ -3,7 +3,7 @@ package jvm.java.Instructions.array;
 import jvm.java.Instructions.Instruction;
 import jvm.java.base.Const;
 import jvm.java.base.JArrayObject;
-import jvm.java.loader.JClass;
+import jvm.java.loader.Klass;
 import jvm.java.runtime.CodeReader;
 import jvm.java.runtime.ObjectHeap;
 import jvm.java.runtime.StackFrame;
@@ -58,7 +58,7 @@ public class NewArray extends Instruction {
         }
         String classname= "["+satype;
         try {
-            JClass arrClass = stackFrame.getJclass().getLoader().FindClass(classname);
+            Klass arrClass = stackFrame.getJclass().getLoader().FindClass(classname);
             int len = stackFrame.getOperandStack().popInt();
             JArrayObject jArrayObject= ObjectHeap.newBaseArray(arrClass, len);
             stackFrame.getOperandStack().pushRef(jArrayObject.getArrayRefValue());

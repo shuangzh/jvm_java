@@ -3,7 +3,7 @@ package jvm.java.Instructions.array;
 import jvm.java.Instructions.Instruction;
 import jvm.java.base.JArrayObject;
 import jvm.java.classfile.constantpool.ConstantClassInfo;
-import jvm.java.loader.JClass;
+import jvm.java.loader.Klass;
 import jvm.java.runtime.CodeReader;
 import jvm.java.runtime.ObjectHeap;
 import jvm.java.runtime.StackFrame;
@@ -31,14 +31,14 @@ public class ANewArray extends Instruction {
         ConstantClassInfo constantClassInfo = (ConstantClassInfo) stackFrame.getJclass().getConstantpool()[index];
         String classname = constantClassInfo.getClassName();
         try {
-            JClass tclass= stackFrame.getJclass().getLoader().FindClass(classname);
+            Klass tclass= stackFrame.getJclass().getLoader().FindClass(classname);
             String arrayClassname=tclass.getName();
             if(classname.startsWith("["))
                 arrayClassname="["+arrayClassname;
             else
                 arrayClassname="[L"+arrayClassname+";";
 
-            JClass arrClass = stackFrame.getJclass().getLoader().FindClass(arrayClassname);
+            Klass arrClass = stackFrame.getJclass().getLoader().FindClass(arrayClassname);
             int count =stackFrame.getOperandStack().popInt();
             JArrayObject jArrayObject= ObjectHeap.newBaseArray(arrClass, count);
 

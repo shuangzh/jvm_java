@@ -3,7 +3,7 @@ package jvm.java.Instructions.newinst;
 import jvm.java.Instructions.Instruction;
 import jvm.java.base.Const;
 import jvm.java.classfile.constantpool.ConstantFieldrefInfo;
-import jvm.java.loader.JClass;
+import jvm.java.loader.Klass;
 import jvm.java.loader.JField;
 import jvm.java.runtime.CodeReader;
 import jvm.java.runtime.StackFrame;
@@ -33,7 +33,7 @@ public class PutStatic extends Instruction {
         String name = constantFieldrefInfo.getName();
         String descriptor = constantFieldrefInfo.getDescriptor();
         String classname = constantFieldrefInfo.getClassName();
-        JClass jClass = null;
+        Klass jClass = null;
         try {
             jClass = stackFrame.getJclass().getLoader().FindClass(classname);
         } catch (IOException e) {

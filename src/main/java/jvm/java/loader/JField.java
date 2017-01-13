@@ -12,7 +12,7 @@ public class JField {
     int access_flag;
     String name;
     String descriptor;
-    JClass classObject;
+    Klass classObject;
 
     int slotId;
 
@@ -24,7 +24,7 @@ public class JField {
         this.slotId = slotId;
     }
 
-    public JField(JClass classObject, ClassFile classFile, FieldInfo fieldInfo) {
+    public JField(Klass classObject, ClassFile classFile, FieldInfo fieldInfo) {
         this.access_flag = fieldInfo.getAccess_flag();
         this.name = classFile.getConstantUtf8InfoValue(fieldInfo.getName_index());
         this.descriptor = classFile.getConstantUtf8InfoValue(fieldInfo.getDescriptor_index());
@@ -49,7 +49,7 @@ public class JField {
         return descriptor;
     }
 
-    public JClass getJClass() {
+    public Klass getJClass() {
         return classObject;
     }
 

@@ -1,9 +1,9 @@
 package jvm.java.Instructions.newinst;
 
 import jvm.java.Instructions.Instruction;
-import jvm.java.base.JObject;
+import jvm.java.base.Basic;
 import jvm.java.classfile.constantpool.ConstantClassInfo;
-import jvm.java.loader.JClass;
+import jvm.java.loader.Klass;
 import jvm.java.runtime.CodeReader;
 import jvm.java.runtime.ObjectHeap;
 import jvm.java.runtime.StackFrame;
@@ -26,10 +26,10 @@ public class NewObj extends Instruction {
     }
 
     public void execute(StackFrame stackFrame) {
-        JClass jClass = stackFrame.getJclass();
+        Klass jClass = stackFrame.getJclass();
         ConstantClassInfo constantClassInfo = (ConstantClassInfo) jClass.getConstantpool()[index];
         String classname = constantClassInfo.getClassName();
-        JClass njclass=null;
+        Klass njclass=null;
         try {
             njclass = jClass.getLoader().FindClass(classname);
 
@@ -37,7 +37,7 @@ public class NewObj extends Instruction {
             e.printStackTrace();
         }
 
-        JObject newobj = ObjectHeap.newObject(njclass);
+        Basic newobj = ObjectHeap.newObject(njclass);
         stackFrame.getOperandStack().pushRef(newobj.getRefValue());
     }
 }

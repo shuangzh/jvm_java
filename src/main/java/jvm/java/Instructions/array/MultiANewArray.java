@@ -3,7 +3,7 @@ package jvm.java.Instructions.array;
 import jvm.java.Instructions.Instruction;
 import jvm.java.base.JArrayObject;
 import jvm.java.classfile.constantpool.ConstantClassInfo;
-import jvm.java.loader.JClass;
+import jvm.java.loader.Klass;
 import jvm.java.runtime.CodeReader;
 import jvm.java.runtime.ObjectHeap;
 import jvm.java.runtime.StackFrame;
@@ -37,7 +37,7 @@ public class MultiANewArray extends Instruction {
         ConstantClassInfo constantClassInfo= (ConstantClassInfo) stackFrame.getJclass().getConstantpool()[index];
         String classname =constantClassInfo.getClassName();
         try {
-            JClass arrClass = stackFrame.getJclass().getLoader().FindClass(classname);
+            Klass arrClass = stackFrame.getJclass().getLoader().FindClass(classname);
             int[] dims=new int[dimensions];
             for(int i=dims.length-1; i>=0; i--) {
                 dims[i]=stackFrame.getOperandStack().popInt();

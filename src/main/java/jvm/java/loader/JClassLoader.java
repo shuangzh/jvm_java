@@ -22,7 +22,7 @@ public class JClassLoader {
     ClassReader classReader = new DirClassReader();
     ClassFileParser classFileParser = new ClassFileParser();
 
-    Map<String, JClass> jClassMap = new HashMap<String, JClass>();
+    Map<String, Klass> jClassMap = new HashMap<String, Klass>();
 
     public JClassLoader(String classpath) {
         this.classReader.setLocation(classpath);
@@ -35,7 +35,7 @@ public class JClassLoader {
     protected synchronized void loadJClass(String classname) throws IOException {
 
         if(classname.startsWith("[")) {
-            JClass arrJClass = new JClass();
+            Klass arrJClass = new Klass();
             arrJClass.setAccess_flag(Const.ACC_PUBLIC);
             arrJClass.setLoader(this);
             arrJClass.setName(classname);
@@ -43,18 +43,18 @@ public class JClassLoader {
             jClassMap.put(classname, arrJClass);
         }
 
-        JClass jClass = this.importJClass(obtainClassFile(classname));
+        Klass jClass = this.importJClass(obtainClassFile(classname));
         // 计算slotCount
         this.calSlotCount(jClass);
         // 运行类初始化方法
         jClassMap.put(classname, jClass);
     }
 
-    protected void calSlotCount(JClass jClass) throws IOException {
+    protected void calSlotCount(Klass jClass) throws IOException {
         int instCount = 0;
         int staticCount = 0;
         if ((jClass.getSuperName()!=null) && (!jClass.getSuperName().equals("java/lang/Object"))) {
-            JClass sp = this.FindClass(jClass.getSuperName());
+            Klass sp = this.FindClass(jClass.getSuperName());
             instCount = sp.getInstanceSlotCount();
         }
         if (jClass.getFields() != null && jClass.getFields().length > 0) {
@@ -81,8 +81,8 @@ public class JClassLoader {
         jClass.setStaticSlots(new SlotArray(staticCount));
     }
 
-    public JClass FindClass(String classname) throws IOException {
-        JClass jClass = jClassMap.get(classname);
+    public Klass FindClass(String classname) throws IOException {
+        Klass jClass = jClassMap.get(classname);
         if (jClass == null) {
             loadJClass(classname);
             return jClassMap.get(classname);
@@ -91,8 +91,8 @@ public class JClassLoader {
         }
     }
 
-    private JClass importJClass(ClassFile classFile) {
-        JClass classObject = new JClass();
+    private Klass importJClass(ClassFile classFile) {
+        Klass classObject = new Klass();
         classObject.setAccess_flag(classFile.getAccess_flags());
         classObject.setName(classFile.getThisClassName());
         classObject.setSuperName(classFile.getSuperClassName());

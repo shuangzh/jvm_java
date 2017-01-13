@@ -1,11 +1,10 @@
 package jvm.java.Instructions.newinst;
 
-import com.sun.org.apache.bcel.internal.classfile.ConstantFieldref;
 import jvm.java.Instructions.Instruction;
 import jvm.java.base.Const;
-import jvm.java.base.JObject;
+import jvm.java.base.Basic;
 import jvm.java.classfile.constantpool.ConstantFieldrefInfo;
-import jvm.java.loader.JClass;
+import jvm.java.loader.Klass;
 import jvm.java.loader.JField;
 import jvm.java.runtime.CodeReader;
 import jvm.java.runtime.ObjectHeap;
@@ -36,7 +35,7 @@ public class GetField extends Instruction {
         String name = constantFieldrefInfo.getName();
         String descriptor = constantFieldrefInfo.getDescriptor();
         String classname = constantFieldrefInfo.getClassName();
-        JClass jClass = null;
+        Klass jClass = null;
         try {
             jClass = stackFrame.getJclass().getLoader().FindClass(classname);
         } catch (IOException e) {
@@ -46,7 +45,7 @@ public class GetField extends Instruction {
         JField jField = jClass.FindField(name, descriptor);
 
         int objRef = stackFrame.getOperandStack().popRef();
-        JObject jObject = ObjectHeap.fetchObject(objRef);
+        Basic jObject = ObjectHeap.fetchObject(objRef);
         String t = descriptor.substring(0, 1);
         if (t.equals(Const.TYP_J )|| t.equals(Const.TYP_D)) {
             int v1 = jObject.getSlotArray().getInt(jField.getSlotId());

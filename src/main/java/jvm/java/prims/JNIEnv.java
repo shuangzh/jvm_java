@@ -1,9 +1,8 @@
 package jvm.java.prims;
 
-import jvm.java.base.JObject;
-import jvm.java.loader.JClass;
+import jvm.java.base.Basic;
+import jvm.java.loader.Klass;
 import jvm.java.loader.JMethod;
-import jvm.java.loader.JType;
 import jvm.java.runtime.LocalVarsTable;
 import jvm.java.runtime.StackFrame;
 import jvm.java.runtime.ThreadStack;
@@ -15,7 +14,7 @@ import jvm.java.runtime.VMContext;
 public class JNIEnv {
     VMContext vmContext;
 
-    public JObject CallStaticMethod(JClass jClass, JMethod jMethod, JObject[] jObjects) {
+    public Basic CallStaticMethod(Klass jClass, JMethod jMethod, Basic[] jObjects) {
         StackFrame newFrame = new StackFrame(vmContext.getThreadStack(), jMethod);
         ThreadStack threadStack= vmContext.getThreadStack();
         LocalVarsTable localVarsTable=newFrame.getLocalVarsTable();

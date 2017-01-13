@@ -6,7 +6,7 @@ import jvm.java.classfile.constantpool.ConstantInfo;
 /**
  * Created by admin on 2017/1/3.
  */
-public class JClass {
+public class Klass {
 
     int access_flag;
     String name;

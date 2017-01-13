@@ -2,9 +2,9 @@ package jvm.java.Instructions.newinst;
 
 import jvm.java.Instructions.Instruction;
 import jvm.java.base.Const;
-import jvm.java.base.JObject;
+import jvm.java.base.Basic;
 import jvm.java.classfile.constantpool.ConstantFieldrefInfo;
-import jvm.java.loader.JClass;
+import jvm.java.loader.Klass;
 import jvm.java.loader.JField;
 import jvm.java.runtime.CodeReader;
 import jvm.java.runtime.ObjectHeap;
@@ -34,7 +34,7 @@ public class PutField extends Instruction {
         String name = constantFieldrefInfo.getName();
         String descriptor = constantFieldrefInfo.getDescriptor();
         String classname = constantFieldrefInfo.getClassName();
-        JClass jClass = null;
+        Klass jClass = null;
         try {
             jClass = stackFrame.getJclass().getLoader().FindClass(classname);
         } catch (IOException e) {
@@ -49,14 +49,14 @@ public class PutField extends Instruction {
             int v1 = stackFrame.getOperandStack().popInt();
 
             int ref = stackFrame.getOperandStack().popRef();
-            JObject jObject = ObjectHeap.fetchObject(ref);
+            Basic jObject = ObjectHeap.fetchObject(ref);
             jObject.getSlotArray().setInt(jField.getSlotId(), v1);
             jObject.getSlotArray().setInt(jField.getSlotId()+1, v2);
         }else
         {
             int v1 = stackFrame.getOperandStack().popInt();
             int ref = stackFrame.getOperandStack().popRef();
-            JObject jObject = ObjectHeap.fetchObject(ref);
+            Basic jObject = ObjectHeap.fetchObject(ref);
             jObject.getSlotArray().setInt(jField.getSlotId(), v1);
         }
     }

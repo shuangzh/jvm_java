@@ -3,7 +3,7 @@ package jvm.java.base;
 /**
  * Created by admin on 2017/1/11.
  */
-public class JArrayObject extends JObject {
+public class JArrayObject extends Basic {
 
     String etype;
 

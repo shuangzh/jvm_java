@@ -1,9 +1,9 @@
 package jvm.java.Instructions.invoke;
 
 import jvm.java.Instructions.Instruction;
-import jvm.java.base.JObject;
+import jvm.java.base.Basic;
 import jvm.java.classfile.constantpool.ConstantMethodrefInfo;
-import jvm.java.loader.JClass;
+import jvm.java.loader.Klass;
 import jvm.java.loader.JClassLoader;
 import jvm.java.loader.JMethod;
 import jvm.java.runtime.CodeReader;
@@ -59,7 +59,7 @@ public class Invokesepcial extends Instruction {
         Object obj= new Object();
         String descriptor = methodrefInfo.getDescriptor();
         JClassLoader jClassLoader = currentFrame.getMethod().getClassObject().getLoader();
-        JClass tjclass = jClassLoader.FindClass(classname);
+        Klass tjclass = jClassLoader.FindClass(classname);
         this.newMethod = tjclass.FindMethod(name, descriptor);
 
     }
@@ -67,13 +67,13 @@ public class Invokesepcial extends Instruction {
 
     protected  void buidNewStackFrame() {
         this.newFrame =  new StackFrame(currentFrame.getThreadStack(), newMethod);
-        JObject[] args=currentFrame.popArgsForMethod(newMethod);
+        Basic[] args=currentFrame.popArgsForMethod(newMethod);
         this.newFrame.setLocalVarsForMethod(newMethod, args);
         currentFrame.getThreadStack().pushFrame(newFrame);
     }
 
     protected void postInvoke() {
-        JObject ret=newFrame.getReturnValue();
+        Basic ret=newFrame.getReturnValue();
         if(ret!=null) {
             System.out.println(newFrame.getFrameName() + " return value :" + ret.getValueInfo());
         }
