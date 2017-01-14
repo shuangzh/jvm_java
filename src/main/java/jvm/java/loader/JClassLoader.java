@@ -24,8 +24,11 @@ public class JClassLoader {
 
     Map<String, Klass> jClassMap = new HashMap<String, Klass>();
 
+    String classpath;
+
     public JClassLoader(String classpath) {
         this.classReader.setLocation(classpath);
+        this.classpath = classpath;
     }
 
     private ClassFile obtainClassFile(String classname) throws IOException {
@@ -34,7 +37,7 @@ public class JClassLoader {
 
     protected synchronized void loadJClass(String classname) throws IOException {
 
-        if(classname.startsWith("[")) {
+        if (classname.startsWith("[")) {
             Klass arrJClass = new Klass();
             arrJClass.setAccess_flag(Const.ACC_PUBLIC);
             arrJClass.setLoader(this);
@@ -53,7 +56,7 @@ public class JClassLoader {
     protected void calSlotCount(Klass jClass) throws IOException {
         int instCount = 0;
         int staticCount = 0;
-        if ((jClass.getSuperName()!=null) && (!jClass.getSuperName().equals("java/lang/Object"))) {
+        if ((jClass.getSuperName() != null) && (!jClass.getSuperName().equals("java/lang/Object"))) {
             Klass sp = this.FindClass(jClass.getSuperName());
             instCount = sp.getInstanceSlotCount();
         }
@@ -81,13 +84,18 @@ public class JClassLoader {
         jClass.setStaticSlots(new SlotArray(staticCount));
     }
 
-    public Klass FindClass(String classname) throws IOException {
-        Klass jClass = jClassMap.get(classname);
-        if (jClass == null) {
-            loadJClass(classname);
-            return jClassMap.get(classname);
-        } else {
-            return jClass;
+    public Klass FindClass(String classname) {
+        try {
+            Klass jClass = jClassMap.get(classname);
+            if (jClass == null) {
+                loadJClass(classname);
+                return jClassMap.get(classname);
+            } else {
+                return jClass;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new NoClassDefFoundError("class :" + classname + " can't found under dirs:" + classpath);
         }
     }
 

@@ -20,6 +20,13 @@ public class JField {
         return slotId;
     }
 
+    public int getSlotSize() {
+        if(descriptor.equals(Const.TYP_J) || descriptor.equals(Const.TYP_D))
+            return  2;
+        else
+            return  1;
+    }
+
     public void setSlotId(int slotId) {
         this.slotId = slotId;
     }

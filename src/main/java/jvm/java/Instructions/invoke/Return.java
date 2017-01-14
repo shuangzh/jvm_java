@@ -1,6 +1,7 @@
 package jvm.java.Instructions.invoke;
 
 import jvm.java.Instructions.Instruction;
+import jvm.java.base.Basic;
 import jvm.java.runtime.CodeReader;
 import jvm.java.runtime.StackFrame;
 import jvm.java.runtime.ThreadStack;
@@ -23,6 +24,11 @@ public class Return extends  Instruction{
     @Override
     public void execute(StackFrame stackFrame) {
         stackFrame.setState(StackFrame.STATE_RETURN);
+
+        Basic retValue=new Basic();
+        retValue.setVoid();
+        stackFrame.setReturnValue(retValue);
+
         ThreadStack threadStack = stackFrame.getThreadStack();
         threadStack.popFrame();
     }

@@ -1,6 +1,7 @@
 package jvm.java.Instructions.array;
 
 import jvm.java.Instructions.Instruction;
+import jvm.java.array.ArrayObject;
 import jvm.java.base.JArrayObject;
 import jvm.java.classfile.constantpool.ConstantClassInfo;
 import jvm.java.loader.Klass;
@@ -28,22 +29,33 @@ public class ANewArray extends Instruction {
 
     @Override
     public void execute(StackFrame stackFrame) {
-        ConstantClassInfo constantClassInfo = (ConstantClassInfo) stackFrame.getJclass().getConstantpool()[index];
-        String classname = constantClassInfo.getClassName();
-        try {
-            Klass tclass= stackFrame.getJclass().getLoader().FindClass(classname);
-            String arrayClassname=tclass.getName();
-            if(classname.startsWith("["))
-                arrayClassname="["+arrayClassname;
-            else
-                arrayClassname="[L"+arrayClassname+";";
+        Klass klass = stackFrame.getJclass().castConstantClassInfo(index);
+        int count =stackFrame.getOperandStack().popInt();
+        String arrayClassName;
+        if(klass.getName().startsWith("["))
+            arrayClassName="["+klass.getName();
+        else
+            arrayClassName="[L"+klass.getName()+";";
+        Klass arrayklass = stackFrame.getJclass().getLoader().FindClass(arrayClassName);
+        ArrayObject arrayObject= ObjectHeap.newArrayObject(arrayklass, count);
+        stackFrame.getOperandStack().pushRef(arrayObject.getId());
 
-            Klass arrClass = stackFrame.getJclass().getLoader().FindClass(arrayClassname);
-            int count =stackFrame.getOperandStack().popInt();
-            JArrayObject jArrayObject= ObjectHeap.newBaseArray(arrClass, count);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        ConstantClassInfo constantClassInfo = (ConstantClassInfo) stackFrame.getJclass().getConstantpool()[index];
+//        String classname = constantClassInfo.getClassName();
+//        try {
+//            Klass tclass= stackFrame.getJclass().getLoader().FindClass(classname);
+//            String arrayClassname=tclass.getName();
+//            if(classname.startsWith("["))
+//                arrayClassname="["+arrayClassname;
+//            else
+//                arrayClassname="[L"+arrayClassname+";";
+//
+//            Klass arrClass = stackFrame.getJclass().getLoader().FindClass(arrayClassname);
+//            int count =stackFrame.getOperandStack().popInt();
+//            JArrayObject jArrayObject= ObjectHeap.newBaseArray(arrClass, count);
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 }

@@ -3,6 +3,7 @@ package jvm.java.Instructions.newinst;
 import jvm.java.Instructions.Instruction;
 import jvm.java.base.Const;
 import jvm.java.base.Basic;
+import jvm.java.base.KlassObject;
 import jvm.java.classfile.constantpool.ConstantFieldrefInfo;
 import jvm.java.loader.Klass;
 import jvm.java.loader.JField;
@@ -31,30 +32,38 @@ public class GetField extends Instruction {
 
     @Override
     public void execute(StackFrame stackFrame) {
-        ConstantFieldrefInfo constantFieldrefInfo = (ConstantFieldrefInfo) stackFrame.getJclass().getConstantpool()[index];
-        String name = constantFieldrefInfo.getName();
-        String descriptor = constantFieldrefInfo.getDescriptor();
-        String classname = constantFieldrefInfo.getClassName();
-        Klass jClass = null;
-        try {
-            jClass = stackFrame.getJclass().getLoader().FindClass(classname);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        JField jField = jClass.FindField(name, descriptor);
-
-        int objRef = stackFrame.getOperandStack().popRef();
-        Basic jObject = ObjectHeap.fetchObject(objRef);
-        String t = descriptor.substring(0, 1);
-        if (t.equals(Const.TYP_J )|| t.equals(Const.TYP_D)) {
-            int v1 = jObject.getSlotArray().getInt(jField.getSlotId());
-            int v2 = jObject.getSlotArray().getInt(jField.getSlotId() + 1);
+        JField field = stackFrame.getJclass().castConstantFieldRefInfo(index);
+        int id = stackFrame.getOperandStack().popRef();
+        KlassObject klassObject=ObjectHeap.fetchKlassObject(id);
+        if(field.getSlotSize() == 2) {
+            int v1 = klassObject.getFieldSlots().getInt(field.getSlotId());
+            int v2 = klassObject.getFieldSlots().getInt(field.getSlotId()+1);
             stackFrame.getOperandStack().pushInt(v1);
             stackFrame.getOperandStack().pushInt(v2);
-        } else {
-            int v1 = jObject.getSlotArray().getInt(jField.getSlotId());
+        }else {
+            int v1 = klassObject.getFieldSlots().getInt(field.getSlotId());
             stackFrame.getOperandStack().pushInt(v1);
         }
+
+//        ConstantFieldrefInfo constantFieldrefInfo = (ConstantFieldrefInfo) stackFrame.getJclass().getConstantpool()[index];
+//        String name = constantFieldrefInfo.getName();
+//        String descriptor = constantFieldrefInfo.getDescriptor();
+//        String classname = constantFieldrefInfo.getClassName();
+//        Klass jClass = null;
+//        jClass = stackFrame.getJclass().getLoader().FindClass(classname);
+//        JField jField = jClass.FindField(name, descriptor);
+//
+//        int objRef = stackFrame.getOperandStack().popRef();
+//        Basic jObject = ObjectHeap.fetchObject(objRef);
+//        String t = descriptor.substring(0, 1);
+//        if (t.equals(Const.TYP_J )|| t.equals(Const.TYP_D)) {
+//            int v1 = jObject.getSlotArray().getInt(jField.getSlotId());
+//            int v2 = jObject.getSlotArray().getInt(jField.getSlotId() + 1);
+//            stackFrame.getOperandStack().pushInt(v1);
+//            stackFrame.getOperandStack().pushInt(v2);
+//        } else {
+//            int v1 = jObject.getSlotArray().getInt(jField.getSlotId());
+//            stackFrame.getOperandStack().pushInt(v1);
+//        }
     }
 }

@@ -22,9 +22,9 @@ public class Invokestatic extends Instruction{
     }
 
     int index ;
-    JMethod newMethod;
-    StackFrame newStackFrame;
-    StackFrame currentStackFrame;
+//    JMethod newMethod;
+//    StackFrame newStackFrame;
+//    StackFrame currentStackFrame;
 
     @Override
     public void fetchOperands(CodeReader codeReader) {
@@ -33,45 +33,60 @@ public class Invokestatic extends Instruction{
 
     @Override
     public void execute(StackFrame stackFrame) {
-        this.currentStackFrame = stackFrame;
+        JMethod method = stackFrame.getJclass().castConstantMethodRefInfo(index);
+        StackFrame newFrame = new StackFrame(stackFrame.getThreadStack(),method);
 
-        try {
-            this.findMethod();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        this.buidNewStackFrame();
+        Basic[] args=stackFrame.popArgsForMethod(method);
+        newFrame.setLocalVarsForMethod(method, args);
 
-        System.out.println("StaticInvoke Start: "+newStackFrame.getFrameName() );
-        newStackFrame.loop();
-        postInvoke();
+        stackFrame.getThreadStack().pushFrame(newFrame);
+        newFrame.loop();
+        postInvoke(stackFrame, newFrame);
 
-        System.out.println("StaticInvoke End: "+newStackFrame.getFrameName());
+//        this.currentStackFrame = stackFrame;
+//
+//        try {
+//            this.findMethod();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        this.buidNewStackFrame();
+//
+//        System.out.println("StaticInvoke Start: "+newStackFrame.getFrameName() );
+//        newStackFrame.loop();
+//        postInvoke();
+//
+//        System.out.println("StaticInvoke End: "+newStackFrame.getFrameName());
 
     }
 
-    protected void findMethod() throws IOException {
-        ConstantMethodrefInfo methodrefInfo= (ConstantMethodrefInfo)currentStackFrame.getMethod().getClassObject().getConstantpool()[index];
-        String classname = methodrefInfo.getClassName();
-        String name = methodrefInfo.getName();
-        String descriptor = methodrefInfo.getDescriptor();
-        JClassLoader jClassLoader = currentStackFrame.getMethod().getClassObject().getLoader();
-        Klass tjclass = jClassLoader.FindClass(classname);
-        this.newMethod = tjclass.FindMethod(name, descriptor);
-    }
 
-    protected  void buidNewStackFrame() {
-        this.newStackFrame =  new StackFrame(currentStackFrame.getThreadStack(), newMethod);
-        Basic[] args=currentStackFrame.popArgsForMethod(newMethod);
-        this.newStackFrame.setLocalVarsForMethod(newMethod, args);
-        currentStackFrame.getThreadStack().pushFrame(newStackFrame);
-    }
+//    protected void findMethod() throws IOException {
+//        ConstantMethodrefInfo methodrefInfo= (ConstantMethodrefInfo)currentStackFrame.getMethod().getClassObject().getConstantpool()[index];
+//        String classname = methodrefInfo.getClassName();
+//        String name = methodrefInfo.getName();
+//        String descriptor = methodrefInfo.getDescriptor();
+//        JClassLoader jClassLoader = currentStackFrame.getMethod().getClassObject().getLoader();
+//        Klass tjclass = jClassLoader.FindClass(classname);
+//        this.newMethod = tjclass.FindMethod(name, descriptor);
+//    }
+//
+//    protected  void buidNewStackFrame() {
+//        this.newStackFrame =  new StackFrame(currentStackFrame.getThreadStack(), newMethod);
+//        Basic[] args=currentStackFrame.popArgsForMethod(newMethod);
+//        this.newStackFrame.setLocalVarsForMethod(newMethod, args);
+//        currentStackFrame.getThreadStack().pushFrame(newStackFrame);
+//    }
+//
+//    protected void postInvoke() {
+//        Basic ret=newStackFrame.getReturnValue();
+//        if(ret!=null) {
+//            System.out.println(newStackFrame.getFrameName() + " return value :" + ret.getValueInfo());
+//        }
+//    }
 
-    protected void postInvoke() {
-        Basic ret=newStackFrame.getReturnValue();
-        if(ret!=null) {
-            System.out.println(newStackFrame.getFrameName() + " return value :" + ret.getValueInfo());
-        }
+    protected void postInvoke(StackFrame currentFrame, StackFrame invokedFrame) {
+            //TODO 增加函数调用后处理功能
     }
 
 }

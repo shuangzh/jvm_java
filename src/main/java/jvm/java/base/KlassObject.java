@@ -11,6 +11,11 @@ public class KlassObject {
     final int id;
     String classname;
     Klass klass;
+
+    public SlotArray getFieldSlots() {
+        return fieldSlots;
+    }
+
     SlotArray fieldSlots;
 
     public KlassObject(int id, Klass klass) {
@@ -47,5 +52,6 @@ public class KlassObject {
     public Basic getField(JField jField) {
         return  null;
     }
+
 
 }

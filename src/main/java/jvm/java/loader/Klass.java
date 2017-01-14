@@ -1,7 +1,10 @@
 package jvm.java.loader;
 
 import jvm.java.base.SlotArray;
+import jvm.java.classfile.constantpool.ConstantClassInfo;
+import jvm.java.classfile.constantpool.ConstantFieldrefInfo;
 import jvm.java.classfile.constantpool.ConstantInfo;
+import jvm.java.classfile.constantpool.ConstantMethodrefInfo;
 
 /**
  * Created by admin on 2017/1/3.
@@ -134,6 +137,37 @@ public class Klass {
                 return fields[i];
         }
         return  null;
+    }
+
+
+    public Klass castConstantClassInfo(int index) {
+        ConstantClassInfo constantClassInfo = (ConstantClassInfo) constantpool[index];
+        String classname = constantClassInfo.getClassName();
+        Klass klass = this.loader.FindClass(classname);
+        return klass;
+    }
+
+    public JMethod castConstantMethodRefInfo(int index) {
+        ConstantMethodrefInfo methodrefInfo = (ConstantMethodrefInfo) constantpool[index];
+//        String classname = methodrefInfo.getClassName();
+        Klass klass = castConstantClassInfo(methodrefInfo.getClassInfoIndex());
+
+        String name = methodrefInfo.getName();
+        String descriptor = methodrefInfo.getDescriptor();
+//        JClassLoader jClassLoader = currentStackFrame.getMethod().getClassObject().getLoader();
+//        Klass tjclass = jClassLoader.FindClass(classname);
+//        this.newMethod = tjclass.FindMethod(name, descriptor);
+        return  klass.FindMethod(name, descriptor);
+    }
+
+    public JField  castConstantFieldRefInfo(int index) {
+        ConstantFieldrefInfo constantFieldrefInfo = (ConstantFieldrefInfo) constantpool[index];
+//        ConstantFieldrefInfo constantFieldrefInfo = (ConstantFieldrefInfo) stackFrame.getJclass().getConstantpool()[index];
+        String name = constantFieldrefInfo.getName();
+        String descriptor = constantFieldrefInfo.getDescriptor();
+//        String classname = constantFieldrefInfo.getClassName();
+        Klass klass= castConstantClassInfo(constantFieldrefInfo.getClassInfoIndex());
+        return klass.FindField(name, descriptor);
     }
 
 }

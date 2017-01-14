@@ -1,6 +1,7 @@
 package jvm.java.Instructions.array;
 
 import jvm.java.Instructions.Instruction;
+import jvm.java.array.ArrayObject;
 import jvm.java.base.Const;
 import jvm.java.base.JArrayObject;
 import jvm.java.loader.Klass;
@@ -57,13 +58,17 @@ public class NewArray extends Instruction {
                 break;
         }
         String classname= "["+satype;
-        try {
-            Klass arrClass = stackFrame.getJclass().getLoader().FindClass(classname);
-            int len = stackFrame.getOperandStack().popInt();
-            JArrayObject jArrayObject= ObjectHeap.newBaseArray(arrClass, len);
-            stackFrame.getOperandStack().pushRef(jArrayObject.getArrayRefValue());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        int len = stackFrame.getOperandStack().popInt();
+        Klass klass = stackFrame.getJclass().getLoader().FindClass(classname);
+        ArrayObject arrayObject= ObjectHeap.newArrayObject(klass, len);
+        stackFrame.getOperandStack().pushRef(arrayObject.getId());
+//        try {
+//            Klass arrClass = stackFrame.getJclass().getLoader().FindClass(classname);
+//            int len = stackFrame.getOperandStack().popInt();
+//            JArrayObject jArrayObject= ObjectHeap.newBaseArray(arrClass, len);
+//            stackFrame.getOperandStack().pushRef(jArrayObject.getArrayRefValue());
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 }

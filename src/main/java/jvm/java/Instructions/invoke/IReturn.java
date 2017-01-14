@@ -23,13 +23,13 @@ public class IReturn extends Instruction {
 
     @Override
     public void execute(StackFrame stackFrame) {
-
-        int retInt= stackFrame.getOperandStack().popInt();
         stackFrame.setState(StackFrame.STATE_RETURN);
 
+        int retInt= stackFrame.getOperandStack().popInt();
         Basic retValue=new Basic();
         retValue.setIntValue(retInt);
         stackFrame.setReturnValue(retValue);
+
         ThreadStack threadStack = stackFrame.getThreadStack();
         threadStack.popFrame();
         if(!threadStack.isEmpty()) {
