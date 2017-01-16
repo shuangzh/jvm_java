@@ -57,7 +57,7 @@ public class JArrayObject extends Basic {
 //    public static JArrayObject createBaseArray(String typ, int length) {
 //        JArrayObject jArrayObject = new JArrayObject();
 //        jArrayObject.setEtype(typ);
-//        jArrayObject.setTyp("[");
+//        jArrayObject.setType("[");
 //        jArrayObject.setClassname("[" + typ);
 //
 //        if (typ.equals(Const.TYP_J) || (typ.equals(Const.TYP_D))) {

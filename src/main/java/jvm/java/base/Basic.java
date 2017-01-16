@@ -18,11 +18,11 @@ public class Basic {
 
 //    protected SlotArray slotArray;
 
-    public String getTyp() {
+    public String getType() {
         return typ;
     }
 
-    public void setTyp(String typ) {
+    public void setType(String typ) {
         this.typ = typ;
     }
 

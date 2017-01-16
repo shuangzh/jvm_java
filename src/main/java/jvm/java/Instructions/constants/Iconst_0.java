@@ -5,24 +5,24 @@ import jvm.java.runtime.CodeReader;
 import jvm.java.runtime.StackFrame;
 
 /**
- * Created by admin on 2016/12/29.
+ * Created by admin on 2017/1/16.
  */
-public class Bipush  extends Instruction{
+public class Iconst_0 extends Instruction{
 
-    int intValue;
-
-    public Bipush() {
-        this.name = "bipush";
-        this.bc = 0x10;
+    int iconst;
+    public Iconst_0() {
+        this.name = "iconst_0";
+        this.bc = 3;
+        this.iconst = 0;
     }
 
     @Override
     public void fetchOperands(CodeReader codeReader) {
-        this.intValue = codeReader.readByte();
+        //
     }
 
     @Override
     public void execute(StackFrame stackFrame) {
-        stackFrame.getOperandStack().pushInt(intValue);
+        stackFrame.getOperandStack().pushInt(iconst);
     }
 }

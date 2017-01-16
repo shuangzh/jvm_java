@@ -25,23 +25,24 @@ public class ThreadStack {
         return  stack.isEmpty();
     }
 
-    public void loop(int num) {
-        if (num < 0) {
-            for (; ; ) {
-                StackFrame frame = currentFrame();
-                frame.execute();
-            }
-        } else {
-            for (int i = 0; i < num; i++) {
-                StackFrame frame = currentFrame();
-                frame.execute();
-            }
-        }
-    }
+//    public void loop(int num) {
+//        if (num < 0) {
+//            for (; ; ) {
+//                StackFrame frame = currentFrame();
+//                frame.execute();
+//            }
+//        } else {
+//            for (int i = 0; i < num; i++) {
+//                StackFrame frame = currentFrame();
+//                frame.execute();
+//            }
+//        }
+//    }
 
     public void start() {
         StackFrame frame = currentFrame();
-        frame.loop();
+//        frame.loop();
+        frame.execute();
     }
 
 }

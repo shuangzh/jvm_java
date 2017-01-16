@@ -1,7 +1,6 @@
 package jvm.java.Instructions;
 
-import jvm.java.Instructions.constants.Bipush;
-import jvm.java.Instructions.constants.Sipush;
+import jvm.java.Instructions.constants.*;
 import jvm.java.Instructions.invoke.IReturn;
 import jvm.java.Instructions.invoke.Invokesepcial;
 import jvm.java.Instructions.invoke.Invokestatic;
@@ -122,6 +121,79 @@ public class InstructionHolder {
         inst = new Astore_3();
         instructionMap.put(inst.BC(), inst);
 
+
+
+        inst = new Lstore();
+        instructionMap.put(inst.BC(), inst);
+
+        inst = new Lstore_0();
+        instructionMap.put(inst.BC(), inst);
+
+        inst = new Lstore_1();
+        instructionMap.put(inst.BC(), inst);
+
+        inst = new Lstore_2();
+        instructionMap.put(inst.BC(), inst);
+
+        inst = new Lstore_3();
+        instructionMap.put(inst.BC(), inst);
+
+        inst = new Fstore();
+        instructionMap.put(inst.BC(), inst);
+
+        inst = new Fstore_0();
+        instructionMap.put(inst.BC(), inst);
+
+        inst = new Fstore_1();
+        instructionMap.put(inst.BC(), inst);
+
+        inst = new Fstore_2();
+        instructionMap.put(inst.BC(), inst);
+
+        inst = new Fstore_3();
+        instructionMap.put(inst.BC(), inst);
+
+        inst = new Dstore();
+        instructionMap.put(inst.BC(), inst);
+
+        inst = new Dstore_0();
+        instructionMap.put(inst.BC(), inst);
+
+        inst = new Dstore_1();
+        instructionMap.put(inst.BC(), inst);
+
+        inst = new Dstore_2();
+        instructionMap.put(inst.BC(), inst);
+
+        inst = new Dstore_3();
+        instructionMap.put(inst.BC(), inst);
+
+        inst = new Ldc();
+        instructionMap.put(inst.BC(), inst);
+
+        inst =new Ldc2_w();
+        instructionMap.put(inst.BC(), inst);
+
+        inst = new Iconst_m1();
+        instructionMap.put(inst.BC(), inst);
+
+        inst = new Iconst_0();
+        instructionMap.put(inst.BC(), inst);
+
+        inst = new Iconst_1();
+        instructionMap.put(inst.BC(), inst);
+
+        inst = new Iconst_2();
+        instructionMap.put(inst.BC(), inst);
+
+        inst = new Iconst_3();
+        instructionMap.put(inst.BC(), inst);
+
+        inst = new Iconst_4();
+        instructionMap.put(inst.BC(), inst);
+
+        inst = new Iconst_5();
+        instructionMap.put(inst.BC(), inst);
 
 
     }

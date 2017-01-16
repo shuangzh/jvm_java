@@ -136,7 +136,6 @@ public class StackFrame {
     }
 
     public void loop() {
-
         this.state = STATE_RUN;
         for (; ; ) {
             if (this.state == STATE_RETURN || this.state == STATE_EXCEPTION)
@@ -151,12 +150,14 @@ public class StackFrame {
     }
 
     public void execute() {
-        int pc = this.getNextPC();
-        int opcode = this.codeReader.readInstructionCode(pc);
-        Instruction inst = InstructionHolder.getInstruction(opcode);
-        inst.fetchOperands(codeReader);
-        this.setNextPC(codeReader.PC());
-        inst.execute(this);
+        this.loop();
+//        int pc = this.getNextPC();
+//        int opcode = this.codeReader.readInstructionCode(pc);
+//        Instruction inst = InstructionHolder.getInstruction(opcode);
+//        inst.fetchOperands(codeReader);
+//        this.setNextPC(codeReader.PC());
+//        inst.execute(this);
+
     }
 
 
@@ -175,15 +176,15 @@ public class StackFrame {
             if (desc.equals(Const.TYP_D)) {
                 double d = this.operandStack.popDouble();
                 obj.setDoubleValue(d);
-                obj.setTyp(desc);
+                obj.setType(desc);
             } else if (desc.equals(Const.TYP_J)) {
                 long l = this.operandStack.popLong();
                 obj.setLongValue(l);
-                obj.setTyp(desc);
+                obj.setType(desc);
             } else {
                 int k = this.operandStack.popInt();
                 obj.setIntValue(k);
-                obj.setTyp(desc);
+                obj.setType(desc);
             }
             args[i] = obj;
         }

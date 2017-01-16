@@ -136,6 +136,9 @@ public class TestBase {
 
     }
 
+    /**
+     * 测试 ByteArrayStack
+     */
     @Test
     public void testByteArrayStack() {
         ByteArrayStack stack = new ByteArrayStack(24);
