@@ -1,12 +1,18 @@
 package jvm.java.Instructions;
 
+import jvm.java.Instructions.cast.I2b;
+import jvm.java.Instructions.cast.I2c;
+import jvm.java.Instructions.cast.I2s;
 import jvm.java.Instructions.constants.*;
 import jvm.java.Instructions.invoke.IReturn;
 import jvm.java.Instructions.invoke.Invokesepcial;
 import jvm.java.Instructions.invoke.Invokestatic;
 import jvm.java.Instructions.invoke.Return;
 import jvm.java.Instructions.loads.*;
+import jvm.java.Instructions.maths.IDiv;
 import jvm.java.Instructions.maths.Iadd;
+import jvm.java.Instructions.maths.Imul;
+import jvm.java.Instructions.maths.Isub;
 import jvm.java.Instructions.newinst.NewObj;
 import jvm.java.Instructions.opstack.Dup;
 import jvm.java.Instructions.stores.*;
@@ -195,6 +201,23 @@ public class InstructionHolder {
         inst = new Iconst_5();
         instructionMap.put(inst.BC(), inst);
 
+        inst = new Isub();
+        instructionMap.put(inst.BC(), inst);
+
+        inst = new Imul();
+        instructionMap.put(inst.BC(), inst);
+
+        inst = new IDiv();
+        instructionMap.put(inst.BC(), inst);
+
+        inst = new I2b();
+        instructionMap.put(inst.BC(), inst);
+
+        inst = new I2s();
+        instructionMap.put(inst.BC(), inst);
+
+        inst = new I2c();
+        instructionMap.put(inst.BC(), inst);
 
     }
 
