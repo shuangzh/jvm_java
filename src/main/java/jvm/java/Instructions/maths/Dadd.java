@@ -7,22 +7,22 @@ import jvm.java.runtime.StackFrame;
 /**
  * Created by admin on 2017/1/19.
  */
-public class Fadd extends Instruction {
-    public Fadd() {
-        this.name = "fadd";
-        this.bc = 98;
+public class Dadd extends Instruction {
+    public Dadd() {
+        this.name = "dadd";
+        this.bc = 99;
     }
 
     @Override
     public void fetchOperands(CodeReader codeReader) {
-        //
+            //
     }
 
     @Override
     public void execute(StackFrame stackFrame) {
-        float v2 = stackFrame.getOperandStack().popFloat();
-        float v1 = stackFrame.getOperandStack().popFloat();
-        float ret = v1 + v2;
-        stackFrame.getOperandStack().pushFloat(ret);
+        double v2 = stackFrame.getOperandStack().popDouble();
+        double v1 = stackFrame.getOperandStack().popDouble();
+        double ret = v1 + v2;
+        stackFrame.getOperandStack().pushDouble(ret);
     }
 }

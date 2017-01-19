@@ -187,7 +187,7 @@ public class TestBaseExecute {
 
     }
 
-    public void floatDoubleMath()
+    public static  void floatDoubleMath()
     {
         float f1, f2, f3, f4, f5;
         f1 = 0.1f + 0.3f;    //  0.4f
@@ -196,10 +196,38 @@ public class TestBaseExecute {
         f4 = f3 / f2;       //  0.4f;
         f5 = (f1 + f2) * f3 - f4 ; // -1.6 * -0.8 -0.4 = 1.28 -0.4 =  0.88f
 
+        double d1, d2, d3, d4, d5;
+        d1 =1000000000.001d + 1.1d; // 1000000001.101
+        d2 = d1 -  1000000000;      // 1.101
+        d3 = d1 * d2 ;              // 1000000001.101* 1.101
+        d4 = d1 / 1000 + d3 ;       // 10000000.01101 + 1000000001.101* 1.101
+        d5 = d1 +d2 +d3/3 - d4 *2.0; // 1000000001.101 + 1.101 + 1000000001.101* 1.101/3 - 1000000001.101* 1.101/2
     }
 
+    @Test
     public void testFloatDoubleMath()
     {
+        JClassLoader jClassLoader = new JClassLoader(System.getProperty("user.dir") + "\\target\\test-classes" + "," + System.getProperty("user.dir") + "\\libs\\rt");
+        ThreadStack threadStack = new ThreadStack();
+        Klass jClass = jClassLoader.FindClass("jvm/java/TestBaseExecute");
+        JMethod jMethod = jClass.FindMethod("floatDoubleMath", "()V");
+        StackFrame frame = new StackFrame(threadStack, jMethod);
+        threadStack.pushFrame(frame);
+        threadStack.start();
 
+        LocalVarsTable localVarsTable = frame.getLocalVarsTable();
+        Assert.assertEquals(0.4f, localVarsTable.getFloat(0), 0.001f);
+        Assert.assertEquals(-2.0f, localVarsTable.getFloat(1), 0.001f);
+
+        Assert.assertEquals(-0.8f, localVarsTable.getFloat(2), 0.001f);
+        Assert.assertEquals(0.4f, localVarsTable.getFloat(3), 0.001f);
+        Assert.assertEquals(0.88f, localVarsTable.getFloat(4), 0.001f);
+
+
+        Assert.assertEquals(1000000001.101, localVarsTable.getDouble(5),0.0001);
+        Assert.assertEquals(1.101, localVarsTable.getDouble(7), 0.001);
+        Assert.assertEquals(1000000001.101* 1.101, localVarsTable.getDouble(9), 0.0001);
+//        Assert.assertEquals(10000000.01101 + 1000000001.101* 1.101, localVarsTable.getDouble(11), 0.0001);
+//        Assert.assertEquals(1000000001.101 + 1.101 + 1000000001.101* 1.101/3 - 1000000001.101* 1.101/2, localVarsTable.getDouble(13), 0.0001);
     }
 }

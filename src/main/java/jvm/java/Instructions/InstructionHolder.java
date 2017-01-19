@@ -225,6 +225,54 @@ public class InstructionHolder {
         inst = new Fdiv();
         instructionMap.put(inst.BC(), inst);
 
+        inst = new Fsub();
+        instructionMap.put(inst.BC(), inst);
+
+        inst = new Fload();
+        instructionMap.put(inst.BC(), inst);
+
+        inst = new Fload_0();
+        instructionMap.put(inst.BC(), inst);
+
+        inst = new Fload_1();
+        instructionMap.put(inst.BC(), inst);
+
+        inst = new Fload_2();
+        instructionMap.put(inst.BC(), inst);
+
+        inst = new Fload_3();
+        instructionMap.put(inst.BC(), inst);
+
+
+        inst = new Dadd();
+        instructionMap.put(inst.BC(), inst);
+
+        inst = new Dsub();
+        instructionMap.put(inst.BC(), inst);
+
+        inst = new Dmul();
+        instructionMap.put(inst.BC(), inst);
+
+        inst = new Ddiv();
+        instructionMap.put(inst.BC(), inst);
+
+        inst = new Dload();
+        instructionMap.put(inst.BC(), inst);
+
+        inst = new Dload_0();
+        instructionMap.put(inst.BC(), inst);
+
+        inst = new Dload_1();
+        instructionMap.put(inst.BC(), inst);
+
+        inst = new Dload_2();
+        instructionMap.put(inst.BC(), inst);
+
+        inst = new Dload_3();
+        instructionMap.put(inst.BC(), inst);
+
+
+
     }
 
 
