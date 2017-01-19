@@ -9,10 +9,7 @@ import jvm.java.Instructions.invoke.Invokesepcial;
 import jvm.java.Instructions.invoke.Invokestatic;
 import jvm.java.Instructions.invoke.Return;
 import jvm.java.Instructions.loads.*;
-import jvm.java.Instructions.maths.IDiv;
-import jvm.java.Instructions.maths.Iadd;
-import jvm.java.Instructions.maths.Imul;
-import jvm.java.Instructions.maths.Isub;
+import jvm.java.Instructions.maths.*;
 import jvm.java.Instructions.newinst.NewObj;
 import jvm.java.Instructions.opstack.Dup;
 import jvm.java.Instructions.stores.*;
@@ -217,6 +214,15 @@ public class InstructionHolder {
         instructionMap.put(inst.BC(), inst);
 
         inst = new I2c();
+        instructionMap.put(inst.BC(), inst);
+
+        inst = new Fadd();
+        instructionMap.put(inst.BC(), inst);
+
+        inst = new Fmul();
+        instructionMap.put(inst.BC(), inst);
+
+        inst = new Fdiv();
         instructionMap.put(inst.BC(), inst);
 
     }

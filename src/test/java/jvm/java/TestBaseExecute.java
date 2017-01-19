@@ -187,5 +187,19 @@ public class TestBaseExecute {
 
     }
 
+    public void floatDoubleMath()
+    {
+        float f1, f2, f3, f4, f5;
+        f1 = 0.1f + 0.3f;    //  0.4f
+        f2 = -1.1f - 0.9f   ;  // -2.0f
+        f3 = f1 * f2;        //  0.4 * -2.0  = -0.8f
+        f4 = f3 / f2;       //  0.4f;
+        f5 = (f1 + f2) * f3 - f4 ; // -1.6 * -0.8 -0.4 = 1.28 -0.4 =  0.88f
 
+    }
+
+    public void testFloatDoubleMath()
+    {
+
+    }
 }
