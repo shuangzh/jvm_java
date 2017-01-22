@@ -8,6 +8,7 @@ import jvm.java.runtime.StackFrame;
 import jvm.java.runtime.ThreadStack;
 import org.junit.Assert;
 import org.junit.Test;
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 /**
  * Created by admin on 2017/1/16.
@@ -198,9 +199,9 @@ public class TestBaseExecute {
 
         double d1, d2, d3, d4, d5;
         d1 =1000000000.001d + 1.1d; // 1000000001.101
-        d2 = d1 -  1000000000;      // 1.101
+        d2 = d1 -  1000000000d;      // 1.101
         d3 = d1 * d2 ;              // 1000000001.101* 1.101
-        d4 = d1 / 1000 + d3 ;       // 10000000.01101 + 1000000001.101* 1.101
+        d4 = d1 / 1000d + d3 ;       // 10000000.01101 + 1000000001.101* 1.101
         d5 = d1 +d2 +d3/3 - d4 *2.0; // 1000000001.101 + 1.101 + 1000000001.101* 1.101/3 - 1000000001.101* 1.101/2
     }
 
@@ -223,11 +224,64 @@ public class TestBaseExecute {
         Assert.assertEquals(0.4f, localVarsTable.getFloat(3), 0.001f);
         Assert.assertEquals(0.88f, localVarsTable.getFloat(4), 0.001f);
 
+        double d1, d2, d3, d4, d5;
+        d1 =1000000000.001d + 1.1d; // 1000000001.101
+        d2 = d1 -  1000000000d;      // 1.101
+        d3 = d1 * d2 ;              // 1000000001.101* 1.101
+        d4 = d1 / 1000d + d3 ;       // 10000000.01101 + 1000000001.101* 1.101
+        d5 = d1 +d2 +d3/3 - d4 *2.0; // 1000000001.101 + 1.101 + 1000000001.101* 1.101/3 - 1000000001.101* 1.101/2
 
-        Assert.assertEquals(1000000001.101, localVarsTable.getDouble(5),0.0001);
-        Assert.assertEquals(1.101, localVarsTable.getDouble(7), 0.001);
-        Assert.assertEquals(1000000001.101* 1.101, localVarsTable.getDouble(9), 0.0001);
-//        Assert.assertEquals(10000000.01101 + 1000000001.101* 1.101, localVarsTable.getDouble(11), 0.0001);
+        Assert.assertEquals(d1, localVarsTable.getDouble(5), 0.001);
+        Assert.assertEquals(d2, localVarsTable.getDouble(7), 0.001);
+        Assert.assertEquals(d3, localVarsTable.getDouble(9), 0.001);
+        Assert.assertEquals(d4, localVarsTable.getDouble(11), 0.001);
+        Assert.assertEquals(d5, localVarsTable.getDouble(13), 0.001);
+
+//        Assert.assertEquals(1000000001.101, localVarsTable.getDouble(5),0.0001);
+//        Assert.assertEquals(1.101, localVarsTable.getDouble(7), 0.001);
+//        Assert.assertEquals((1000000000.001d + 1.1d) * (1000000000.001d + 1.1d -1000000000d), localVarsTable.getDouble(9), 0.0001);
+//        Assert.assertEquals((1000000000.001d + 1.1d)/100d + (1000000000.001d + 1.1d) * (1000000000.001d + 1.1d -1000000000d) , localVarsTable.getDouble(11), 0.0001);
 //        Assert.assertEquals(1000000001.101 + 1.101 + 1000000001.101* 1.101/3 - 1000000001.101* 1.101/2, localVarsTable.getDouble(13), 0.0001);
     }
+
+    public static  void longMath()
+    {
+        long l1, l2, l3, l4, l5;
+        l1 = 10000l;
+        l2 = l1 + 90000l;
+        l3 = l1 * l2 - 90000000l;
+        l4 = l3 / l1 ;
+        l5 = l1 -l2 +l3*l4 -l2/l1;
+
+    }
+
+    @Test
+    public void testLongMath()
+    {
+        JClassLoader jClassLoader = new JClassLoader(System.getProperty("user.dir") + "\\target\\test-classes" + "," + System.getProperty("user.dir") + "\\libs\\rt");
+        ThreadStack threadStack = new ThreadStack();
+        Klass jClass = jClassLoader.FindClass("jvm/java/TestBaseExecute");
+        JMethod jMethod = jClass.FindMethod("longMath", "()V");
+        StackFrame frame = new StackFrame(threadStack, jMethod);
+        threadStack.pushFrame(frame);
+        threadStack.start();
+
+
+        long l1, l2, l3, l4, l5;
+        l1 = 10000l;
+        l2 = l1 + 90000l;
+        l3 = l1 * l2 - 90000000l;
+        l4 = l3 / l1 ;
+        l5 = l1 -l2 +l3*l4 -l2/l1;
+
+        LocalVarsTable localVarsTable = frame.getLocalVarsTable();
+        Assert.assertEquals(l1, localVarsTable.getLong(0));
+        Assert.assertEquals(l2, localVarsTable.getLong(2));
+        System.out.println("l2 = "+ l2);
+        Assert.assertEquals(l3, localVarsTable.getLong(4));
+        Assert.assertEquals(l4, localVarsTable.getLong(6));
+        Assert.assertEquals(l5, localVarsTable.getLong(8));
+
+    }
+
 }

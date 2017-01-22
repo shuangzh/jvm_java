@@ -271,7 +271,32 @@ public class InstructionHolder {
         inst = new Dload_3();
         instructionMap.put(inst.BC(), inst);
 
+        inst = new Ladd();
+        instructionMap.put(inst.BC(), inst);
 
+        inst = new Lsub();
+        instructionMap.put(inst.BC(), inst);
+
+        inst = new Lmul();
+        instructionMap.put(inst.BC(), inst);
+
+        inst = new Ldiv();
+        instructionMap.put(inst.BC(), inst);
+
+        inst = new Lload();
+        instructionMap.put(inst.BC(), inst);
+
+        inst = new Lload_0();
+        instructionMap.put(inst.BC(), inst);
+
+        inst = new Lload_1();
+        instructionMap.put(inst.BC(), inst);
+
+        inst = new Lload_2();
+        instructionMap.put(inst.BC(), inst);
+
+        inst = new Lload_3();
+        instructionMap.put(inst.BC(), inst);
 
     }
 
