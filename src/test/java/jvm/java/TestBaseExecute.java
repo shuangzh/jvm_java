@@ -284,4 +284,181 @@ public class TestBaseExecute {
 
     }
 
+    public static void messMath()
+    {
+        int i1, i2, i3;
+        byte b1, b2, b3;
+        char c1, c2, c3;
+        short s1, s2, s3;
+        float f1, f2, f3;
+        long l1, l2, l3;
+        double d1, d2, d3;
+
+        i1 = 100 * 10;
+        i2 = i1 -1000;
+        i3 = i2 / i1 ;
+
+        b1 = 9;
+        b2 = -19;
+        b3 = (byte) (b1-b2);
+
+        c1 = 'a';
+        c2 = 'b';
+        c3 = (char) (c1 * c2 +1);
+
+        s1 = 2999;
+        s2 = (short) (s1 *2);
+        s3 = (short) (s1 + s2);
+
+        f1 = 0.2f;
+        f2 = 1.1f +f1;
+        f3 = f1 * f2;
+
+        l1 = 1000l;
+        l2 = 10*l1;
+        l3 = l2 /l1 + l1;
+
+        d1 = -100000d;
+        d2 = d1 - 0.11;
+        d3 = d1 * d2;
+
+
+
+        b1 = (byte) (i1 -s1 + c1);
+        b2 = (byte) (f2 - d1 * i2);
+        b3 = (byte) (s3 + c2);
+
+        c1 = (char) (s3+ i3 * b2);
+        c2 = (char) (b1 -b3);
+        c3 = (char) (c1/c2);
+
+        s1 = (short) (i1-f1);
+        s2 = (short) ((s1 -b2)* 3/f2);
+        s3 = (short) (d2-d1);
+
+
+        i1 = b1 * s1 + b2 * s2 + b3 * c3;
+        i2 = (int) (b2 -100 + f2 - d1+ 0.22d);
+        i3 = (int) (8888-s2 -b3* s3 -f1);
+
+        f1 = 0.2f + (b1+10)*200 - s3;
+        f2 = (float) (200 + d1* 2 -c1*c3);
+        f3 = (float) (i3+19999 -f2-d3);
+
+        d1 = 9.999 +d1;
+        d2 = d1 + s1 + b1 * i1+ 100;
+        d3 = d2 -0.111 + 10.11* b1 + c1 * 0.222f;
+
+
+    }
+
+    @Test
+    public void testMessMath()
+    {
+        JClassLoader jClassLoader = new JClassLoader(System.getProperty("user.dir") + "\\target\\test-classes" + "," + System.getProperty("user.dir") + "\\libs\\rt");
+        ThreadStack threadStack = new ThreadStack();
+        Klass jClass = jClassLoader.FindClass("jvm/java/TestBaseExecute");
+        JMethod jMethod = jClass.FindMethod("messMath", "()V");
+        StackFrame frame = new StackFrame(threadStack, jMethod);
+        threadStack.pushFrame(frame);
+        threadStack.start();
+        LocalVarsTable localVarsTable = frame.getLocalVarsTable();
+
+
+        int i1, i2, i3;
+        byte b1, b2, b3;
+        char c1, c2, c3;
+        short s1, s2, s3;
+        float f1, f2, f3;
+        long l1, l2, l3;
+        double d1, d2, d3;
+
+        i1 = 100 * 10;
+        i2 = i1 -1000;
+        i3 = i2 / i1 ;
+
+        b1 = 9;
+        b2 = -19;
+        b3 = (byte) (b1-b2);
+
+        c1 = 'a';
+        c2 = 'b';
+        c3 = (char) (c1 * c2 +1);
+
+        s1 = 2999;
+        s2 = (short) (s1 *2);
+        s3 = (short) (s1 + s2);
+
+        f1 = 0.2f;
+        f2 = 1.1f +f1;
+        f3 = f1 * f2;
+
+        l1 = 1000l;
+        l2 = 10*l1;
+        l3 = l2 /l1 + l1;
+
+        d1 = -100000d;
+        d2 = d1 - 0.11;
+        d3 = d1 * d2;
+
+
+        b1 = (byte) (i1 -s1 + c1);
+        b2 = (byte) (f2 - d1 * i2);
+        b3 = (byte) (s3 + c2);
+
+        c1 = (char) (s3+ i3 * b2);
+        c2 = (char) (b1 -b3);
+        c3 = (char) (c1/c2);
+
+        s1 = (short) (i1-f1);
+        s2 = (short) ((s1 -b2)* 3/f2);
+        s3 = (short) (d2-d1);
+
+
+        i1 = b1 * s1 + b2 * s2 + b3 * c3;
+        i2 = (int) (b2 -100 + f2 - d1+ 0.22d);
+        i3 = (int) (8888-s2 -b3* s3 -f1);
+
+        f1 = 0.2f + (b1+10)*200 - s3;
+        f2 = (float) (200 + d1* 2 -c1*c3);
+        f3 = (float) (i3+19999 -f2-d3);
+
+        d1 = 9.999 +d1;
+        d2 = d1 + s1 + b1 * i1+ 100;
+        d3 = d2 -0.111 + 10.11* b1 + c1 * 0.222f;
+
+
+
+
+
+        Assert.assertEquals(i1, localVarsTable.getInt(0));
+        Assert.assertEquals(i2, localVarsTable.getInt(1));
+        Assert.assertEquals(i3, localVarsTable.getInt(2));
+
+        Assert.assertEquals(b1, localVarsTable.getInt(3));
+        Assert.assertEquals(b2, localVarsTable.getInt(4));
+        Assert.assertEquals(b3, localVarsTable.getInt(5));
+
+        Assert.assertEquals(c1, localVarsTable.getInt(6));
+        Assert.assertEquals(c2, localVarsTable.getInt(7));
+        Assert.assertEquals(c3, localVarsTable.getInt(8));
+
+        Assert.assertEquals(s1, localVarsTable.getInt(9));
+        Assert.assertEquals(s2, localVarsTable.getInt(10));
+        Assert.assertEquals(s3, localVarsTable.getInt(11));
+
+        Assert.assertEquals(f1, localVarsTable.getFloat(12), 0.01);
+        Assert.assertEquals(f2, localVarsTable.getFloat(13), 0.01);
+        Assert.assertEquals(f3, localVarsTable.getFloat(14), 0.01);
+
+        Assert.assertEquals(l1, localVarsTable.getLong(15));
+        Assert.assertEquals(l2, localVarsTable.getLong(17));
+        Assert.assertEquals(l3, localVarsTable.getLong(19));
+
+        Assert.assertEquals(d1, localVarsTable.getDouble(21), 0.01);
+        Assert.assertEquals(d2, localVarsTable.getDouble(23), 0.01);
+        Assert.assertEquals(d3, localVarsTable.getDouble(25), 0.01);
+
+    }
+
 }

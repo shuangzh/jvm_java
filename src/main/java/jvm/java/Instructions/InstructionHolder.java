@@ -1,8 +1,6 @@
 package jvm.java.Instructions;
 
-import jvm.java.Instructions.cast.I2b;
-import jvm.java.Instructions.cast.I2c;
-import jvm.java.Instructions.cast.I2s;
+import jvm.java.Instructions.cast.*;
 import jvm.java.Instructions.constants.*;
 import jvm.java.Instructions.invoke.IReturn;
 import jvm.java.Instructions.invoke.Invokesepcial;
@@ -296,6 +294,43 @@ public class InstructionHolder {
         instructionMap.put(inst.BC(), inst);
 
         inst = new Lload_3();
+        instructionMap.put(inst.BC(), inst);
+
+
+        inst = new D2f();
+        instructionMap.put(inst.BC(), inst);
+
+        inst = new D2i();
+        instructionMap.put(inst.BC(), inst);
+
+        inst = new D2l();
+        instructionMap.put(inst.BC(), inst);
+
+        inst = new F2d();
+        instructionMap.put(inst.BC(), inst);
+
+        inst = new F2i();
+        instructionMap.put(inst.BC(), inst);
+
+        inst = new F2l();
+        instructionMap.put(inst.BC(), inst);
+
+        inst = new I2d();
+        instructionMap.put(inst.BC(), inst);
+
+        inst = new I2f();
+        instructionMap.put(inst.BC(), inst);
+
+        inst = new I2l();
+        instructionMap.put(inst.BC(), inst);
+
+        inst = new L2d();
+        instructionMap.put(inst.BC(), inst);
+
+        inst = new L2f();
+        instructionMap.put(inst.BC(), inst);
+
+        inst = new L2i();
         instructionMap.put(inst.BC(), inst);
 
     }
